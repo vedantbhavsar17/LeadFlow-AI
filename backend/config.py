@@ -12,6 +12,11 @@ class Config:
     SECRET_KEY = getenv("SECRET_KEY", "change-me")
     SQLALCHEMY_DATABASE_URI = getenv("DATABASE_URL", "sqlite:///leadflow.sqlite3")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_pre_ping": True,
+    }
+
+    MIGRATIONS_DIRECTORY = getenv("MIGRATIONS_DIRECTORY", "database/migrations")
 
     AI_PROVIDER = getenv("AI_PROVIDER", "nim")
     NVIDIA_NIM_API_KEY = getenv("NVIDIA_NIM_API_KEY", "")
@@ -20,4 +25,3 @@ class Config:
 
     GEMINI_API_KEY = getenv("GEMINI_API_KEY", "")
     OLLAMA_BASE_URL = getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-

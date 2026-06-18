@@ -1,6 +1,6 @@
 # Migrations
 
-Placeholder for future database migrations.
+Flask-Migrate/Alembic migration directory placeholder.
 
-TODO: Introduce Alembic or Flask-Migrate when models are implemented.
-
+TODO: Run `flask db init` and create the first migration only after concrete
+domain models are approved and implemented.
