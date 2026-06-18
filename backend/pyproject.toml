@@ -1,0 +1,15 @@
+[project]
+name = "leadflow-backend"
+version = "0.1.0"
+description = "LeadFlow backend architecture scaffold"
+requires-python = ">=3.11"
+dependencies = [
+  "Flask>=3.0.0",
+  "SQLAlchemy>=2.0.0",
+  "Flask-SQLAlchemy>=3.1.0",
+  "python-dotenv>=1.0.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["../tests/backend"]
+
