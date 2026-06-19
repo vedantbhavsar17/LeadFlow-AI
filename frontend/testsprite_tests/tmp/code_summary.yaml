@@ -1,0 +1,96 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - React
+  - Next.js (App Router)
+  - Tailwind CSS
+  - Recharts
+  - Lucide React
+routes:
+  - path: /
+    file: app/(marketing)/page.tsx
+    auth_required: false
+    description: Public marketing landing page
+  - path: /pricing
+    file: app/(marketing)/pricing/page.tsx
+    auth_required: false
+    description: Product pricing tier options
+  - path: /dashboard
+    file: app/(app)/dashboard/page.tsx
+    auth_required: false
+    description: Analytics dashboard and channels summary
+  - path: /leads
+    file: app/(app)/leads/page.tsx
+    auth_required: false
+    description: Leads list and CSV imports
+  - path: /pipeline
+    file: app/(app)/pipeline/page.tsx
+    auth_required: false
+    description: Kanban pipeline deal matrix board
+  - path: /settings
+    file: app/(app)/settings/page.tsx
+    auth_required: false
+    description: AI representative settings and secret credentials
+features:
+  - name: Landing Page Interactivity
+    description: Public landing page featuring pipeline loops, scrolltelling tracks, feature glows, and demo video popups.
+    files:
+      - app/(marketing)/page.tsx
+      - app/(marketing)/landing.css
+    entry_route: /
+    user_interactions:
+      - Scroll down the page to trigger scrolltelling animations
+      - Click "Watch Demo" or "Book Demo" to trigger modal walkthrough overlay
+      - Click "Get Started" to navigate to /dashboard
+    auth_required: false
+  - name: Pricing Controls & FAQs
+    description: Interactive pricing cards with frequency toggle and FAQ accordion drop-downs.
+    files:
+      - app/(marketing)/pricing/page.tsx
+    entry_route: /pricing
+    user_interactions:
+      - Click the billing toggle button to swap monthly/annual prices
+      - Click a FAQ question header to expand its answer
+    auth_required: false
+  - name: Dashboard Overview
+    description: Dashboard view showcasing lead metrics, charts, channels breakdown, and activity streams.
+    files:
+      - app/(app)/dashboard/page.tsx
+    entry_route: /dashboard
+    user_interactions:
+      - View Total Leads, Qualified Leads, Conversations, and Conversion Rate cards
+      - Hover over Recharts area chart line points
+      - View Top Channels donut piechart and Recent Activity logs
+    auth_required: false
+  - name: Leads Repository & Import
+    description: Leads list table with text search, status filters, and mock CSV ingestion.
+    files:
+      - app/(app)/leads/page.tsx
+    entry_route: /leads
+    user_interactions:
+      - Enter query into the search input box
+      - Click status filters (ALL, HOT, WARM, COLD)
+      - Click "Upload CSV" button to trigger import dialog
+      - Click "Start AI Diagnostics" in import dialog to mock import leads
+    auth_required: false
+  - name: Kanban Board Deal Movement
+    description: Horizontal Kanban board allowing card movements between stages.
+    files:
+      - app/(app)/pipeline/page.tsx
+    entry_route: /pipeline
+    user_interactions:
+      - Click the left and right arrow buttons on pipeline cards to move them across stages
+    auth_required: false
+  - name: System Settings
+    description: Operations settings form for AI representative naming and third-party CRM API keys.
+    files:
+      - app/(app)/settings/page.tsx
+    entry_route: /settings
+    user_interactions:
+      - Input AI Agent representative identity name
+      - Change outbox pitch style or diagnostic frequency options
+      - Input API keys for HubSpot, Salesforce, or OpenAI
+      - Click "Save Changes" to save configurations
+    auth_required: false
+known_limitations: []

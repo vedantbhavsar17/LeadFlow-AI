@@ -1,51 +1,67 @@
-# LeadFlow
+# LeadFlow Frontend 🎨
 
-LeadFlow is an AI-powered Lead Conversion Operating System.
+The frontend interface for LeadFlow AI is built using **Next.js 15**, **React 19**, **TypeScript**, and **Tailwind CSS v4**. It features a modern, responsive layout conforming to the *Modern Corporate with Glassmorphic Accents* design system.
 
-Phase 1 is architecture only. This repository currently contains structure, documentation, placeholders, and TODOs for the production foundation. It intentionally does not implement business logic, AI logic, CRM features, frontend pages, APIs, database models, authentication, or external integrations.
+---
 
-## Product Vision
+## 🛠️ Frontend Tech Stack
 
-LeadFlow helps lead-driven businesses move leads through the conversion journey:
+* **Core**: Next.js 15 (App Router), React 19, TypeScript
+* **Styling**: Tailwind CSS v4 (configured via `@import "tailwindcss";` and CSS `@theme` declarations)
+* **Data Charts**: Recharts (PieChart, AreaChart, LineChart)
+* **Icons**: Lucide React
+* **Type Safety**: Full TypeScript compiler type checking enabled (`npm run typecheck`)
 
-Lead -> Qualified -> Engaged -> Followed Up -> Meeting Booked -> Converted
+---
 
-LeadFlow is not a traditional CRM. CRM capabilities are infrastructure for a broader lead conversion engine.
+## 📂 Routes & Folder Structure
 
-## MVP Principles
+The application routes are divided into two main groups using Next.js route groups:
 
-- NVIDIA NIM is the primary AI provider.
-- The platform must be able to operate with free AI services.
-- SQLite is acceptable for MVP.
-- The architecture must remain PostgreSQL-ready.
-- WhatsApp API is optional.
-- LinkedIn API is optional.
-- Message generation is mandatory.
-- Lead qualification is mandatory.
-- Business Context Engine is mandatory.
-- Conversion Prediction is mandatory.
+### 1. Marketing Routes `(marketing)/`
+* **`/` (Landing Page)**: Main promotional page showcasing value propositions, interactive storytelling, and a modal walkthrough overlay. Uses `landing.css`.
+* **`/pricing` (Pricing Page)**: Plan selector page with an annual/monthly billing toggle and pricing FAQ accordion cards.
 
-## Repository Layout
+### 2. Application Core Routes `(app)/`
+* **`/dashboard` (Dashboard)**: Core metrics display (Total Leads, Qualified Leads, Conversations, and Conversion Rate sparklines), the horizontal Lead Pipeline chevron step visualizer, Recent Activity panel, Top Channels pie chart, and AI Insights area chart card.
+* **`/leads` (Leads Repository)**: Full database table listing current leads, featuring text query search, HOT/WARM/COLD status filters, and a CSV import dialog with uploader.
+* **`/pipeline` (Kanban Board)**: Drag-and-drop or button-triggered Kanban matrix representing deal movement from Raw Leads, Qualified, Engaged, to Converted stages.
+* **`/settings` (Configuration)**: Forms for defining the AI representative identity (name, outreach style, cadence) and storing encrypted API keys for HubSpot, Salesforce, and OpenAI.
 
-```text
-leadflow/
-├── backend/
-├── frontend/
-├── docs/
-├── prompts/
-├── tests/
-├── scripts/
-├── legacy_crm/
-├── README.md
-├── .gitignore
-└── .env.example
+---
+
+## 🚀 How to Run Locally
+
+### 1. Install Dependencies
+Open your terminal inside the `frontend` directory and run:
+```bash
+npm install
 ```
 
-`legacy_crm/` is intentionally empty. Existing CRM code will be copied there later and should not be analyzed during Phase 1.
+### 2. Run the Development Server
+```bash
+npm run dev
+```
+This runs the local development server on:
+```text
+http://localhost:3000
+```
 
-## Development Status
+### 3. Verify Types & Build
+Before deploying or committing, you can verify that the code passes TypeScript checks and compiles correctly:
+```bash
+npm run typecheck
+npm run build
+```
 
-Current phase: Phase 1 Architecture Only.
+---
 
-Next phases are documented in [docs/ROADMAP.md](docs/ROADMAP.md).
+## 🧪 Testing with TestSprite
+Integration and browser end-to-end tests are housed in the `testsprite_tests` directory.
 
+To run automated browser tests, first ensure the local server is running on `http://localhost:3000`, then execute the test scripts under `frontend/testsprite_tests`:
+```bash
+cd testsprite_tests
+python TC001_Visit_landing_page_and_enter_the_app.py
+```
+Test results, logs, and coverage reports are outputted to the `frontend/testsprite_tests/tmp/` folder.

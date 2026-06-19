@@ -1,0 +1,435 @@
+[
+  {
+    "id": "TC001",
+    "title": "Visit landing page and enter the app",
+    "description": "A prospect can watch the landing page demo experience and proceed into the dashboard entry point.",
+    "category": "Marketing Landing Experience",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Open the demo modal"
+      },
+      {
+        "type": "action",
+        "description": "Close the demo modal"
+      },
+      {
+        "type": "action",
+        "description": "Click the primary call to action to get started"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Get started from the landing page",
+    "description": "A visitor can use the landing page entry point to reach the app dashboard.",
+    "category": "Landing Page Interactivity",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the primary get started entry point"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user lands on the dashboard"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "View dashboard overview metrics and activity",
+    "description": "A user can open the dashboard and review the key performance cards, charts, and recent activity summary.",
+    "category": "Dashboard Overview",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify lead metric cards are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify dashboard charts are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify recent activity entries are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Move a deal to the next pipeline stage",
+    "description": "A user can move a deal card forward in the pipeline and see it appear in the next stage column.",
+    "category": "Kanban Board Deal Movement",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /pipeline"
+      },
+      {
+        "type": "action",
+        "description": "Move a deal card to the next stage"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the card is displayed in the updated stage column"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Search and filter leads",
+    "description": "A sales ops user can narrow the leads repository by search term and status and see matching leads.",
+    "category": "Leads Repository & Import",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /leads"
+      },
+      {
+        "type": "action",
+        "description": "Enter a search term into the leads search field"
+      },
+      {
+        "type": "action",
+        "description": "Apply a status filter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the matching leads list is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "View landing storytelling and open the demo overlay",
+    "description": "A visitor can scroll the landing page, open the demo walkthrough overlay, close it, and continue into the app.",
+    "category": "Landing Page Interactivity",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Scroll down the page"
+      },
+      {
+        "type": "action",
+        "description": "Click the demo walkthrough trigger"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the demo overlay is displayed"
+      },
+      {
+        "type": "action",
+        "description": "Close the demo overlay"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the demo overlay is no longer displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Import leads with AI diagnostics",
+    "description": "A sales ops user can start the CSV import flow and see new leads added to the repository after diagnostics run.",
+    "category": "Leads Repository & Import",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /leads"
+      },
+      {
+        "type": "action",
+        "description": "Open the CSV import flow"
+      },
+      {
+        "type": "action",
+        "description": "Start the AI diagnostics import"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify newly imported leads are displayed in the repository"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Inspect dashboard chart details",
+    "description": "A user can hover dashboard chart points and see more detailed values for the selected data.",
+    "category": "Dashboard Overview",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Hover over a chart point"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify detailed chart values are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "Compare monthly and annual pricing",
+    "description": "A visitor can switch billing frequency on the pricing page and see the plan prices update.",
+    "category": "Pricing Controls & FAQs",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /pricing"
+      },
+      {
+        "type": "action",
+        "description": "Switch the billing frequency to annual"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the pricing values update for annual billing"
+      },
+      {
+        "type": "action",
+        "description": "Switch the billing frequency back to monthly"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the pricing values update for monthly billing"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC010",
+    "title": "Update AI representative settings and save",
+    "description": "An admin can change the AI representative identity and outreach settings and see the updated configuration persist in the settings view.",
+    "category": "System Settings",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /settings"
+      },
+      {
+        "type": "action",
+        "description": "Enter a new AI representative name"
+      },
+      {
+        "type": "action",
+        "description": "Adjust the outreach style"
+      },
+      {
+        "type": "action",
+        "description": "Adjust the diagnostic frequency"
+      },
+      {
+        "type": "action",
+        "description": "Save the changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated configuration is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC011",
+    "title": "Save CRM and OpenAI credentials",
+    "description": "An admin can enter CRM and OpenAI API keys and see them stored in settings after saving.",
+    "category": "System Settings",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /settings"
+      },
+      {
+        "type": "action",
+        "description": "Enter HubSpot credentials"
+      },
+      {
+        "type": "action",
+        "description": "Enter Salesforce credentials"
+      },
+      {
+        "type": "action",
+        "description": "Enter OpenAI credentials"
+      },
+      {
+        "type": "action",
+        "description": "Save the changes"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the saved credentials are displayed in settings"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC012",
+    "title": "Watch the demo overlay from the landing page",
+    "description": "A visitor can open the landing page demo walkthrough overlay from the marketing page.",
+    "category": "Landing Page Interactivity",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click the demo walkthrough trigger"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the demo overlay is displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC013",
+    "title": "Compare monthly and annual pricing and expand FAQs",
+    "description": "A visitor can switch pricing billing cadence and expand FAQs to compare plans before deciding.",
+    "category": "Pricing Page",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /pricing"
+      },
+      {
+        "type": "action",
+        "description": "Switch the billing view"
+      },
+      {
+        "type": "action",
+        "description": "Expand a FAQ item"
+      },
+      {
+        "type": "action",
+        "description": "Expand another FAQ item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify pricing options for both billing views are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC014",
+    "title": "Expand pricing FAQs",
+    "description": "A visitor can open a pricing FAQ item and read its answer.",
+    "category": "Pricing Controls & FAQs",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /pricing"
+      },
+      {
+        "type": "action",
+        "description": "Expand a FAQ item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the FAQ answer is displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC015",
+    "title": "Move a deal back to a previous pipeline stage",
+    "description": "A user can move a deal card backward in the pipeline and see it return to an earlier stage column.",
+    "category": "Kanban Board Deal Movement",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /pipeline"
+      },
+      {
+        "type": "action",
+        "description": "Move a deal card to the previous stage"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the card is displayed in the earlier stage column"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC016",
+    "title": "Review multiple pricing FAQs",
+    "description": "A visitor can expand more than one FAQ item on the pricing page to compare answers.",
+    "category": "Pricing Controls & FAQs",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /pricing"
+      },
+      {
+        "type": "action",
+        "description": "Expand one FAQ item"
+      },
+      {
+        "type": "action",
+        "description": "Expand another FAQ item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify multiple FAQ answers are displayed"
+      }
+    ],
+    "priority": "Low"
+  },
+  {
+    "id": "TC017",
+    "title": "Show empty results for no-match search",
+    "description": "A sales ops user who searches for nothing should see an empty filtered results state in the leads repository.",
+    "category": "Leads Repository & Import",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /leads"
+      },
+      {
+        "type": "action",
+        "description": "Enter a search term that matches no leads"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an empty results state is displayed"
+      }
+    ],
+    "priority": "Low"
+  }
+]
