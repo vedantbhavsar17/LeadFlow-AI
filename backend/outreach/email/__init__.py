@@ -1,9 +1,16 @@
-"""Email outreach placeholder."""
+"""Email communication exports."""
 
+from outreach.email.email_models import EmailCommunicationError, EmailSendResult, IncomingEmail
+from outreach.email.email_service import EmailService
+from outreach.email.smtp_client import SMTPClient
 
-class EmailOutreachService:
-    """Placeholder for future email outreach generation and sending."""
+EmailOutreachService = EmailService
 
-    # TODO: Add email workflow using free-first architecture.
-    pass
-
+__all__ = [
+    "EmailCommunicationError",
+    "EmailOutreachService",
+    "EmailSendResult",
+    "EmailService",
+    "IncomingEmail",
+    "SMTPClient",
+]

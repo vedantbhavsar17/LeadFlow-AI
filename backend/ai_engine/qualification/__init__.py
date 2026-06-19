@@ -1,9 +1,22 @@
-"""Lead qualification placeholders."""
+"""Lead qualification exports."""
 
+from ai_engine.qualification.prompt_builder import QualificationPromptBuilder
+from ai_engine.qualification.qualification_models import (
+    QualificationError,
+    QualificationParseError,
+    QualificationResult,
+)
+from ai_engine.qualification.qualification_service import QualificationService
+from ai_engine.qualification.response_parser import QualificationResponseParser
 
-class LeadQualificationEngine:
-    """Placeholder for future AI lead qualification."""
+LeadQualificationEngine = QualificationService
 
-    # TODO: Score lead fit, urgency, intent, and readiness later.
-    pass
-
+__all__ = [
+    "LeadQualificationEngine",
+    "QualificationError",
+    "QualificationParseError",
+    "QualificationPromptBuilder",
+    "QualificationResponseParser",
+    "QualificationResult",
+    "QualificationService",
+]

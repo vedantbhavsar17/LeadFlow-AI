@@ -22,6 +22,9 @@ ACTIVITY_TYPES = {
     "followup_created",
     "meeting_booked",
     "converted",
+    "reply_generated",
+    "reply_sent",
+    "human_review_required",
 }
 
 
