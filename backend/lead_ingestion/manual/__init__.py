@@ -1,9 +1,5 @@
-"""Manual lead entry placeholder."""
+"""Manual lead ingestion exports."""
 
+from lead_ingestion.manual.manual_ingestion_service import ManualIngestionService
 
-class ManualLeadSource:
-    """Placeholder for future manual lead entry."""
-
-    # TODO: Define manual entry contract.
-    pass
-
+__all__ = ["ManualIngestionService"]
