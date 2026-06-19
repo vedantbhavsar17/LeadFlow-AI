@@ -2,5 +2,7 @@
 
 Flask-Migrate/Alembic migration directory placeholder.
 
-TODO: Run `flask db init` and create the first migration only after concrete
-domain models are approved and implemented.
+The first Phase 4 migration creates only the core LeadFlow data-layer tables.
+
+TODO: Review generated migrations before production use and keep migrations
+free of business logic.

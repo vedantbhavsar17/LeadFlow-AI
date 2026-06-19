@@ -32,6 +32,8 @@ def init_database(app: Flask) -> None:
     the project ready for PostgreSQL-compatible migrations later.
     """
     db.init_app(app)
+    import database.models  # noqa: F401
+
     migrate.init_app(
         app,
         db,

@@ -1,8 +1,23 @@
 """Database model registry.
 
-Phase 3 intentionally defines no domain models. Future model modules should
-import `BaseModel` from `database.base` and be imported here so Flask-Migrate
-can discover them.
-
-TODO: Register LeadFlow domain models after schema approval.
+Import model classes here so Flask-Migrate can discover SQLAlchemy metadata.
+No API, AI, or business workflow behavior belongs in this package.
 """
+
+from database.models.ai_insight import AIInsight
+from database.models.business_context import BusinessContext
+from database.models.customer import Customer
+from database.models.followup_task import FollowupTask
+from database.models.lead import Lead
+from database.models.lead_activity import LeadActivity
+from database.models.raw_lead_event import RawLeadEvent
+
+__all__ = [
+    "AIInsight",
+    "BusinessContext",
+    "Customer",
+    "FollowupTask",
+    "Lead",
+    "LeadActivity",
+    "RawLeadEvent",
+]
