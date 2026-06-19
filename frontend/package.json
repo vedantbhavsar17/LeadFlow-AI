@@ -14,13 +14,14 @@
     "class-variance-authority": "latest",
     "clsx": "latest",
     "lucide-react": "latest",
-    "next": "15.0.0",
+    "next": "latest",
     "react": "latest",
     "react-dom": "latest",
     "recharts": "latest",
     "tailwind-merge": "latest"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.1",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
@@ -30,4 +31,3 @@
     "typescript": "latest"
   }
 }
-

@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeadFlow AI - Premium Sales Automation Platform</title>
+  <meta name="description" content="LeadFlow AI automatically qualifies leads, generates outreach, analyzes replies, and manages follow-ups so you can focus on closing deals.">
+  
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Styling -->
+  <link rel="stylesheet" href="/style.css">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  
+  <!-- Premium Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon"></div>
+        <span class="logo-text">LeadFlow <span class="ai-badge">AI</span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#showcase">Dashboard</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="pricing.html">Pricing</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="#demo" class="btn btn-secondary btn-sm" id="nav-demo-btn">Watch Demo</a>
+        <a href="#get-started" class="btn btn-primary btn-sm" id="nav-cta-btn">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg-glow"></div>
+    <div class="hero-container">
+      <h1 class="hero-headline">
+        Transform Raw Leads Into <br>
+        <span class="gradient-text">Qualified Sales Conversations</span>
+      </h1>
+      <p class="hero-subheadline">
+        LeadFlow AI automatically qualifies leads, generates personalized outreach, analyzes replies, and manages follow-ups so your team can focus on closing deals.
+      </p>
+      
+      <div class="hero-ctas">
+        <a href="#get-started" class="btn btn-primary btn-lg">Get Started</a>
+        <a href="#demo" class="btn btn-secondary btn-lg" id="hero-demo-btn">
+          <i data-lucide="play" class="icon-play"></i> Watch Demo
+        </a>
+      </div>
+      
+      <!-- Hero Visual: Animated AI Pipeline -->
+      <div class="hero-pipeline-wrapper">
+        <div class="pipeline-title">Continuous AI Sales Operations Pipeline</div>
+        <div class="pipeline-container">
+          <div class="pipeline-node" data-stage="csv">
+            <div class="node-icon-wrapper"><i data-lucide="file-up"></i></div>
+            <span class="node-label">CSV Upload</span>
+            <div class="node-status"></div>
+            <!-- Refinement sub-element: Mini progress bar -->
+            <div class="node-mini-progress"><div class="progress-fill"></div></div>
+          </div>
+          
+          <div class="pipeline-connector"><div class="connector-pulse"></div></div>
+          
+          <div class="pipeline-node" data-stage="qualify">
+            <div class="node-icon-wrapper"><i data-lucide="check-circle-2"></i></div>
+            <span class="node-label">AI Qualification</span>
+            <div class="node-status"></div>
+            <!-- Refinement sub-element: Scoring readout -->
+            <div class="node-readout" id="pipe-score-readout">-- WARM</div>
+          </div>
+          
+          <div class="pipeline-connector"><div class="connector-pulse"></div></div>
+          
+          <div class="pipeline-node" data-stage="pain-points">
+            <div class="node-icon-wrapper"><i data-lucide="scan-face"></i></div>
+            <span class="node-label">Pain Detection</span>
+            <div class="node-status"></div>
+            <!-- Refinement sub-element: Scan grid indicator -->
+            <div class="node-scanner-beam"></div>
+          </div>
+          
+          <div class="pipeline-connector"><div class="connector-pulse"></div></div>
+          
+          <div class="pipeline-node" data-stage="outreach">
+            <div class="node-icon-wrapper"><i data-lucide="mail"></i></div>
+            <span class="node-label">Personalized Outreach</span>
+            <div class="node-status"></div>
+            <!-- Refinement sub-element: Writing dots -->
+            <div class="node-typing-dots"><span></span><span></span><span></span></div>
+          </div>
+          
+          <div class="pipeline-connector"><div class="connector-pulse"></div></div>
+          
+          <div class="pipeline-node" data-stage="reply">
+            <div class="node-icon-wrapper"><i data-lucide="message-square-code"></i></div>
+            <span class="node-label">Reply Intelligence</span>
+            <div class="node-status"></div>
+            <!-- Refinement sub-element: Classification chips -->
+            <div class="node-readout" id="pipe-reply-readout">Budget ✓</div>
+          </div>
+          
+          <div class="pipeline-connector"><div class="connector-pulse"></div></div>
+          
+          <div class="pipeline-node" data-stage="follow-up">
+            <div class="node-icon-wrapper"><i data-lucide="calendar"></i></div>
+            <span class="node-label">Follow-Up Automation</span>
+            <div class="node-status"></div>
+            <!-- Refinement sub-element: Clock hand spinner -->
+            <div class="node-clock-hand"></div>
+          </div>
+          
+          <div class="pipeline-connector"><div class="connector-pulse"></div></div>
+          
+          <div class="pipeline-node highlight" data-stage="meeting">
+            <div class="node-icon-wrapper"><i data-lucide="trophy"></i></div>
+            <span class="node-label">Meeting Scheduled</span>
+            <div class="node-status bg-accent-glow"></div>
+            <!-- Refinement sub-element: Particle burst glow -->
+            <div class="node-glow-burst"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scrolltelling Track -->
+  <div class="scrolltelling-track" id="scroll-track">
+    <div class="scrolltelling-sticky">
+      
+      <!-- Left side: Text descriptions that overlay on scroll -->
+      <div class="scenes-text-container">
+        
+        <div class="scene-text" id="scene-text-1" data-scene="1">
+          <span class="scene-badge">Scene 1 / 6: The Problem</span>
+          <h2 class="scene-title">Leads are everywhere.</h2>
+          <p class="scene-desc">
+            Most agencies lose opportunities because their sales process is fragmented. Raw leads sit scattered across unsorted CSV files, spreadsheets, WebForms, and legacy emails.
+          </p>
+        </div>
+        
+        <div class="scene-text" id="scene-text-2" data-scene="2">
+          <span class="scene-badge">Scene 2 / 6: Qualification</span>
+          <h2 class="scene-title">AI identifies your best opportunities.</h2>
+          <p class="scene-desc">
+            Raw files compile into our central AI Core. LeadFlow automatically processes company data, industry parameters, and business size, qualifying leads and scoring them instantly.
+          </p>
+        </div>
+        
+        <div class="scene-text" id="scene-text-3" data-scene="3">
+          <span class="scene-badge">Scene 3 / 6: Diagnostics</span>
+          <h2 class="scene-title">Find opportunities before your competitors.</h2>
+          <p class="scene-desc">
+            The engine diagnostics scan each prospect's public digital footprint. LeadFlow AI surfaces active website issues, SEO gaps, missing lead forms, and brand presence shortcomings.
+          </p>
+        </div>
+        
+        <div class="scene-text" id="scene-text-4" data-scene="4">
+          <span class="scene-badge">Scene 4 / 6: Outreach</span>
+          <h2 class="scene-title">Every message feels personal.</h2>
+          <p class="scene-desc">
+            No templates. Our AI dynamically generates outreach copy addressing the specific diagnosed pain point. Instantly produce bespoke context-rich emails tailored to the recipient's role.
+          </p>
+        </div>
+        
+        <div class="scene-text" id="scene-text-5" data-scene="5">
+          <span class="scene-badge">Scene 5 / 6: Analysis</span>
+          <h2 class="scene-title">AI understands every conversation.</h2>
+          <p class="scene-desc">
+            When prospects reply, our Reply Intelligence extracts crucial attributes: budget limits, timelines, underlying requirements, and objections, organizing them in real-time.
+          </p>
+        </div>
+        
+        <div class="scene-text" id="scene-text-6" data-scene="6">
+          <span class="scene-badge">Scene 6 / 6: Persistent Memory</span>
+          <h2 class="scene-title">Your AI never forgets a lead.</h2>
+          <p class="scene-desc">
+            All details populate a persistent Semantic Memory Graph. Relational nodes connect budgets, objections, and next actions to trigger automated follow-ups, keeping the sales loop running 24/7.
+          </p>
+        </div>
+        
+      </div>
+      
+      <!-- Right side: Visual canvas displaying state transitions -->
+      <div class="scenes-visual-container">
+        
+        <!-- Scene 1 Visual: Raw Lead Chaos -->
+        <div class="scene-visual" id="scene-vis-1" data-scene="1">
+          <div class="chaos-lead card-glass" style="--x: -120px; --y: -80px; --r: -12deg;">
+            <i data-lucide="file-spreadsheet" class="col-green"></i> <span>leads_export_q2.csv</span>
+          </div>
+          <div class="chaos-lead card-glass" style="--x: 130px; --y: -110px; --r: 8deg;">
+            <i data-lucide="table-properties" class="col-blue"></i> <span>Google Sheet (Shared)</span>
+          </div>
+          <div class="chaos-lead card-glass" style="--x: -150px; --y: 100px; --r: -8deg;">
+            <i data-lucide="form-input" class="col-cyan"></i> <span>Contact Form #4</span>
+          </div>
+          <div class="chaos-lead card-glass" style="--x: 120px; --y: 90px; --r: 15deg;">
+            <i data-lucide="mail-warning" class="col-purple"></i> <span>Inbound Request</span>
+          </div>
+          <div class="chaos-lead card-glass" style="--x: 0px; --y: -160px; --r: -3deg;">
+            <i data-lucide="file-text" class="col-red"></i> <span>outbox_leads_list</span>
+          </div>
+          <div class="chaos-lead card-glass" style="--x: -20px; --y: 150px; --r: 5deg;">
+            <i data-lucide="database" class="col-orange"></i> <span>Backup_CRM_final</span>
+          </div>
+          <div class="chaos-center-glow"></div>
+        </div>
+        
+        <!-- Scene 2 Visual: AI Qualification Engine -->
+        <div class="scene-visual" id="scene-vis-2" data-scene="2">
+          <div class="ai-core-hub">
+            <div class="ai-core-ring ring-1"></div>
+            <div class="ai-core-ring ring-2"></div>
+            <div class="ai-core-ring ring-3"></div>
+            <div class="ai-core-center">
+              <i data-lucide="cpu" class="ai-core-icon"></i>
+            </div>
+          </div>
+          
+          <div class="qualify-lead-card card-glass hot-card" style="--slot: 1;">
+            <div class="qualify-header">
+              <span class="q-name">Acme Corp</span>
+              <span class="q-badge hot">91 HOT</span>
+            </div>
+            <div class="q-details">SaaS Agency • $10M Revenue</div>
+          </div>
+          
+          <div class="qualify-lead-card card-glass warm-card" style="--slot: 2;">
+            <div class="qualify-header">
+              <span class="q-name">Apex Global</span>
+              <span class="q-badge warm">74 WARM</span>
+            </div>
+            <div class="q-details">E-commerce • $2.5M Revenue</div>
+          </div>
+          
+          <div class="qualify-lead-card card-glass cold-card" style="--slot: 3;">
+            <div class="qualify-header">
+              <span class="q-name">Local Bistro</span>
+              <span class="q-badge cold">35 COLD</span>
+            </div>
+            <div class="q-details">Restaurant • $200k Revenue</div>
+          </div>
+        </div>
+        
+        <!-- Scene 3 Visual: Pain Point Detection -->
+        <div class="scene-visual" id="scene-vis-3" data-scene="3">
+          <div class="diagnostic-card card-glass">
+            <div class="diagnostic-header">
+              <i data-lucide="scan-search" class="col-cyan"></i>
+              <span>AI Diagnostic Engine</span>
+              <span class="status-scanning">SCANNING ACTIVE</span>
+            </div>
+            <div class="diagnostic-lead-name">Acme Corp Digital Assets</div>
+            
+            <div class="diagnostic-scan-container">
+              <div class="diagnostic-item error" style="--delay: 1;">
+                <i data-lucide="x-circle"></i>
+                <div class="diag-detail">
+                  <strong>Website Load Speed</strong>
+                  <span>6.4s response time (Failed)</span>
+                </div>
+              </div>
+              <div class="diagnostic-item error" style="--delay: 2;">
+                <i data-lucide="x-circle"></i>
+                <div class="diag-detail">
+                  <strong>SEO Configuration</strong>
+                  <span>Missing canonical references, metadata sparse</span>
+                </div>
+              </div>
+              <div class="diagnostic-item success" style="--delay: 3;">
+                <i data-lucide="check-circle-2"></i>
+                <div class="diag-detail">
+                  <strong>SSL Certificate</strong>
+                  <span>Valid secure HTTPS (Passed)</span>
+                </div>
+              </div>
+              <div class="diagnostic-item error" style="--delay: 4;">
+                <i data-lucide="x-circle"></i>
+                <div class="diag-detail">
+                  <strong>Lead Capture Mechanics</strong>
+                  <span>No visible CTAs or active intake structures</span>
+                </div>
+              </div>
+              
+              <div class="scan-laser-line"></div>
+            </div>
+            
+            <div class="diagnostic-footer">
+              <span class="footer-label">SUGGESTED ANGLE:</span>
+              <span class="angle-text">"Website performance optimization & High-conversion landing funnel bundle"</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Scene 4 Visual: Personalized Outreach -->
+        <div class="scene-visual" id="scene-vis-4" data-scene="4">
+          <div class="email-terminal card-glass">
+            <div class="terminal-bar">
+              <div class="dot red"></div>
+              <div class="dot yellow"></div>
+              <div class="dot green"></div>
+              <div class="terminal-title">outreach_generator.sh</div>
+            </div>
+            <div class="terminal-meta">
+              <div><strong>To:</strong> john@acmecorp.com</div>
+              <div><strong>Subject:</strong> AI analysis of Acme Corp's conversion pipeline</div>
+            </div>
+            <div class="terminal-body">
+              <span id="typed-email"></span><span class="terminal-cursor">|</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Scene 5 Visual: Reply Intelligence -->
+        <div class="scene-visual" id="scene-vis-5" data-scene="5">
+          <!-- Inbound Reply -->
+          <div class="reply-bubble card-glass">
+            <div class="reply-header">
+              <div class="avatar">J</div>
+              <div class="reply-meta">
+                <strong>John Doe (Acme Corp)</strong>
+                <span>Received: 2 minutes ago</span>
+              </div>
+            </div>
+            <div class="reply-content">
+              "Hi, saw your analysis on our checkout flow. That speed diagnostic is spot on. We want to fix this by Q3. Budget is around $8k. Do you have slots next Tuesday at 3 PM EST for a call?"
+            </div>
+          </div>
+          
+          <i data-lucide="arrow-down" class="extractor-arrow"></i>
+          
+          <!-- Extracted Profile -->
+          <div class="extracted-profile-card card-glass">
+            <div class="profile-title"><i data-lucide="sparkles"></i> Reply Analysis Insights</div>
+            <div class="profile-grid">
+              <div class="profile-field">
+                <span class="field-label">Budget Range</span>
+                <span class="field-value badge-glow col-cyan">$8,000</span>
+              </div>
+              <div class="profile-field">
+                <span class="field-label">Target Timeline</span>
+                <span class="field-value badge-glow col-green">Q3 Implementation</span>
+              </div>
+              <div class="profile-field">
+                <span class="field-label">Sentiment</span>
+                <span class="field-value badge-glow col-purple">Highly Interested</span>
+              </div>
+              <div class="profile-field">
+                <span class="field-label">Objection</span>
+                <span class="field-value badge-glow col-red">None Detected</span>
+              </div>
+            </div>
+            <div class="profile-action">
+              <span class="action-label">Next Best Action:</span>
+              <span class="action-value">Auto-book Calendar: Tuesday 3:00 PM EST</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Scene 6 Visual: Lead Memory + Follow-Ups -->
+        <div class="scene-visual" id="scene-vis-6" data-scene="6">
+          <div class="memory-graph-canvas">
+            <svg class="graph-svg" width="380" height="280">
+              <line x1="190" y1="140" x2="60" y2="70" class="graph-line"></line>
+              <line x1="190" y1="140" x2="320" y2="70" class="graph-line"></line>
+              <line x1="190" y1="140" x2="70" y2="210" class="graph-line"></line>
+              <line x1="190" y1="140" x2="310" y2="210" class="graph-line"></line>
+            </svg>
+            
+            <div class="graph-node node-center" style="left: 190px; top: 140px;">
+              <i data-lucide="user-check"></i>
+              <span class="node-tooltip">John Doe</span>
+            </div>
+            <div class="graph-node node-sub" style="left: 60px; top: 70px;">
+              <i data-lucide="alert-triangle" class="col-red"></i>
+              <span class="node-tooltip">Site Speed</span>
+            </div>
+            <div class="graph-node node-sub" style="left: 320px; top: 70px;">
+              <i data-lucide="dollar-sign" class="col-cyan"></i>
+              <span class="node-tooltip">$8,000</span>
+            </div>
+            <div class="graph-node node-sub" style="left: 70px; top: 210px;">
+              <i data-lucide="clock" class="col-purple"></i>
+              <span class="node-tooltip">Tuesday Call</span>
+            </div>
+            <div class="graph-node node-sub" style="left: 310px; top: 210px;">
+              <i data-lucide="network" class="col-blue"></i>
+              <span class="node-tooltip">Acme Corp</span>
+            </div>
+            
+            <div class="follow-up-toast card-glass">
+              <i data-lucide="bell-ring" class="pulse-icon col-cyan"></i>
+              <div>
+                <strong>Automated Follow-Up Sent</strong>
+                <span>Confirming Tuesday invite in John's calendar.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Hero Transformation Section (Scroll ending dashboard transition) -->
+  <section class="transformation-section">
+    <div class="container text-center">
+      <span class="section-tag">Unified Operations</span>
+      <h2 class="transformation-headline">The future of sales operations.</h2>
+      <p class="transformation-sub">
+        Every lead, analysis, outbound communication, and schedule structured within a single command center. Stop jumping between fragmented apps.
+      </p>
+      
+      <div class="dashboard-pipeline-preview card-glass">
+        <div class="dashboard-inner-header">
+          <div class="db-title-group">
+            <span class="db-dot"></span>
+            <span class="db-dot"></span>
+            <span class="db-dot"></span>
+            <span class="db-window-title">LeadFlow Dashboard — Unified View</span>
+          </div>
+          <div class="db-header-actions">
+            <span class="db-pill"><i data-lucide="calendar"></i> Tuesday Call Scheduled</span>
+          </div>
+        </div>
+        
+        <!-- Live widgets -->
+        <div class="db-widgets">
+          <div class="db-widget">
+            <span class="w-lbl">Total Leads</span>
+            <span class="w-val">2,482</span>
+            <span class="w-change plus">+12.4%</span>
+          </div>
+          <div class="db-widget">
+            <span class="w-lbl">Hot Leads</span>
+            <span class="w-val">312</span>
+            <span class="w-change plus">+28.1%</span>
+          </div>
+          <div class="db-widget">
+            <span class="w-lbl">Emails Sent</span>
+            <span class="w-val">1,829</span>
+            <span class="w-change plus">+5.3%</span>
+          </div>
+          <div class="db-widget">
+            <span class="w-lbl">Replies</span>
+            <span class="w-val">492</span>
+            <span class="w-change plus">+14.2%</span>
+          </div>
+          <div class="db-widget">
+            <span class="w-lbl">Meetings</span>
+            <span class="w-val">87</span>
+            <span class="w-change plus">+32.0%</span>
+          </div>
+          <div class="db-widget">
+            <span class="w-lbl">Conversions</span>
+            <span class="w-val">12.8%</span>
+            <span class="w-change plus">+2.4%</span>
+          </div>
+        </div>
+        
+        <!-- Kanban board pipeline -->
+        <div class="kanban-pipeline-wrapper">
+          <div class="kanban-col">
+            <div class="col-head">New <span class="badge">12</span></div>
+            <div class="kanban-card">
+              <span class="card-name">TechCorp</span>
+              <span class="card-desc">Inbound Form</span>
+              <span class="card-score cold">32</span>
+            </div>
+            <div class="kanban-card">
+              <span class="card-name">Delta Inc</span>
+              <span class="card-desc">CSV Import</span>
+              <span class="card-score warm">58</span>
+            </div>
+          </div>
+          <div class="kanban-col">
+            <div class="col-head">Qualified <span class="badge">8</span></div>
+            <div class="kanban-card">
+              <span class="card-name">Alpha Media</span>
+              <span class="card-desc">SaaS Dev Agency</span>
+              <span class="card-score hot">88</span>
+            </div>
+          </div>
+          <div class="kanban-col">
+            <div class="col-head">Pitched <span class="badge">14</span></div>
+            <div class="kanban-card">
+              <span class="card-name">Nova Studio</span>
+              <span class="card-desc">Outbound Sent</span>
+              <span class="card-score hot">90</span>
+            </div>
+            <div class="kanban-card">
+              <span class="card-name">Scale Digital</span>
+              <span class="card-desc">Pain Pitch</span>
+              <span class="card-score warm">76</span>
+            </div>
+          </div>
+          <div class="kanban-col">
+            <div class="col-head">Replied <span class="badge">6</span></div>
+            <div class="kanban-card highlight-glow">
+              <span class="card-name">Acme Corp</span>
+              <span class="card-desc">Interested (Reply Q3)</span>
+              <span class="card-score hot">91</span>
+            </div>
+          </div>
+          <div class="kanban-col">
+            <div class="col-head">Meeting Needed <span class="badge">2</span></div>
+            <div class="kanban-card">
+              <span class="card-name">Zeta Logistics</span>
+              <span class="card-desc">Invite Sent</span>
+              <span class="card-score hot">94</span>
+            </div>
+          </div>
+          <div class="kanban-col">
+            <div class="col-head">Won <span class="badge">48</span></div>
+            <div class="kanban-card won">
+              <span class="card-name">Vortex Co</span>
+              <span class="card-desc">Contract Signed</span>
+              <span class="card-badge-won">WON</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="trans-cta">
+        <a href="#get-started" class="btn btn-primary btn-lg">Start Using LeadFlow AI</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Grid Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">System Capabilities</span>
+        <h2 class="section-title">Designed for enterprise sales teams.</h2>
+        <p class="section-sub">
+          A full-cycle autonomous outbound operations framework inside one clean system.
+        </p>
+      </div>
+      
+      <div class="features-grid">
+        
+        <div class="feature-card">
+          <div class="feature-card-glow"></div>
+          <div class="feature-icon"><i data-lucide="check-square"></i></div>
+          <h3 class="feature-title">AI Lead Qualification</h3>
+          <p class="feature-desc">
+            Classify and enrich thousands of leads in minutes. Evaluate relevance, revenue capacity, and buying intent accurately.
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-card-glow"></div>
+          <div class="feature-icon"><i data-lucide="search-code"></i></div>
+          <h3 class="feature-title">Pain Point Detection</h3>
+          <p class="feature-desc">
+            Scan corporate websites, domains, and SEO metadata to uncover technological weaknesses and direct pitch angles.
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-card-glow"></div>
+          <div class="feature-icon"><i data-lucide="edit-3"></i></div>
+          <h3 class="feature-title">Personalized Outreach</h3>
+          <p class="feature-desc">
+            Instantly create highly custom copy detailing how you can solve their exact pain points. No templates used.
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-card-glow"></div>
+          <div class="feature-icon"><i data-lucide="brain-circuit"></i></div>
+          <h3 class="feature-title">Reply Intelligence</h3>
+          <p class="feature-desc">
+            Categorize incoming emails by purchase timeline, budget availability, specific demands, and potential objections.
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-card-glow"></div>
+          <div class="feature-icon"><i data-lucide="network"></i></div>
+          <h3 class="feature-title">Lead Memory</h3>
+          <p class="feature-desc">
+            Retain structured histories of prior dialogues, target budgets, obstacles, and next steps in a secure semantic graph.
+          </p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-card-glow"></div>
+          <div class="feature-icon"><i data-lucide="alarm-clock"></i></div>
+          <h3 class="feature-title">Follow-Up Automation</h3>
+          <p class="feature-desc">
+            Trigger custom messages based on the exact elapsed time and previous interactions without human intervention.
+          </p>
+        </div>
+        
+        <div class="feature-card full-width-card">
+          <div class="feature-card-glow"></div>
+          <div class="feature-icon"><i data-lucide="layout-dashboard"></i></div>
+          <div class="full-card-content">
+            <h3 class="feature-title">Pipeline Dashboard</h3>
+            <p class="feature-desc">
+              Track conversion KPIs, lead counts, and appointment status live on a clean dashboard tailored for sales leadership.
+            </p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof Section -->
+  <section class="social-proof-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-value" data-target="80">0%</div>
+          <div class="stat-label">Less Manual Work</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" data-target="3">0x</div>
+          <div class="stat-label">Faster Qualification</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" data-target="50">0%</div>
+          <div class="stat-label">Faster Follow-Ups</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">24/7</div>
+          <div class="stat-label">AI Sales Assistant</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Showcase Section -->
+  <section class="showcase-section" id="showcase">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Interactive Interface</span>
+        <h2 class="section-title">The LeadFlow AI Platform Showcase</h2>
+        <p class="section-sub">
+          Take control of your entire sales pipeline. Explore dynamic dashboard analytics, real-time insights, and automated activity tracking.
+        </p>
+      </div>
+      
+      <!-- High fidelity mockup showcase -->
+      <div class="showcase-mockup-wrapper card-glass">
+        
+        <!-- Left Sidebar -->
+        <div class="showcase-sidebar">
+          <div class="sidebar-logo">
+            <div class="logo-icon-small"></div>
+            <span>LeadFlow</span>
+          </div>
+          <div class="sidebar-menu">
+            <div class="menu-item active"><i data-lucide="layout-grid"></i> <span>Dashboard</span></div>
+            <div class="menu-item"><i data-lucide="users"></i> <span>Leads</span></div>
+            <div class="menu-item"><i data-lucide="message-square"></i> <span>Conversations</span></div>
+            <div class="menu-item"><i data-lucide="send"></i> <span>Campaigns</span></div>
+            <div class="menu-item"><i data-lucide="bar-chart-3"></i> <span>Analytics</span></div>
+            <div class="menu-item"><i data-lucide="settings"></i> <span>Settings</span></div>
+          </div>
+        </div>
+        
+        <!-- Main Content Showcase -->
+        <div class="showcase-main">
+          <!-- Inner Navigation -->
+          <div class="showcase-inner-nav">
+            <h3 class="inner-nav-title">Dashboard Overview</h3>
+            <div class="inner-nav-actions">
+              <span class="date-picker-mock"><i data-lucide="calendar"></i> This Month <i data-lucide="chevron-down"></i></span>
+            </div>
+          </div>
+          
+          <!-- Key Metrics Grid -->
+          <div class="showcase-metrics">
+            <div class="metric-card">
+              <div class="m-card-header">
+                <span class="m-lbl">Total Leads</span>
+                <i data-lucide="users" class="col-blue"></i>
+              </div>
+              <span class="m-val">1,248</span>
+              <span class="m-sub plus"><i data-lucide="arrow-up-right"></i> 18.6% vs last month</span>
+            </div>
+            
+            <div class="metric-card">
+              <div class="m-card-header">
+                <span class="m-lbl">Qualified Leads</span>
+                <i data-lucide="check-circle-2" class="col-green"></i>
+              </div>
+              <span class="m-val">312</span>
+              <span class="m-sub plus"><i data-lucide="arrow-up-right"></i> 21.3% vs last month</span>
+            </div>
+            
+            <div class="metric-card">
+              <div class="m-card-header">
+                <span class="m-lbl">Conversations</span>
+                <i data-lucide="message-circle" class="col-purple"></i>
+              </div>
+              <span class="m-val">128</span>
+              <span class="m-sub plus"><i data-lucide="arrow-up-right"></i> 15.7% vs last month</span>
+            </div>
+            
+            <div class="metric-card">
+              <div class="m-card-header">
+                <span class="m-lbl">Conversion Rate</span>
+                <i data-lucide="target" class="col-orange"></i>
+              </div>
+              <span class="m-val">24.6%</span>
+              <span class="m-sub plus"><i data-lucide="arrow-up-right"></i> 6.4% vs last month</span>
+            </div>
+          </div>
+          
+          <!-- Mid Section Content -->
+          <div class="showcase-split-grid">
+            
+            <!-- Recent activity & channels -->
+            <div class="split-column left-split card-glass-dark">
+              <h4 class="column-title">Recent Pipeline Activity</h4>
+              <div class="activity-timeline">
+                <div class="activity-item">
+                  <div class="act-icon bg-blue"><i data-lucide="send"></i></div>
+                  <div class="act-details">
+                    <p>AI outreach email delivered to 45 hot SaaS prospects</p>
+                    <span>2 mins ago</span>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="act-icon bg-green"><i data-lucide="check"></i></div>
+                  <div class="act-details">
+                    <p>12 leads qualified automatically by Diagnostic Engine</p>
+                    <span>15 mins ago</span>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="act-icon bg-purple"><i data-lucide="message-circle"></i></div>
+                  <div class="act-details">
+                    <p>3 new conversations analyzed with positive interest</p>
+                    <span>1 hour ago</span>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <div class="act-icon bg-orange"><i data-lucide="star"></i></div>
+                  <div class="act-details">
+                    <p>Meeting scheduled: <strong>BrightFuture Inc</strong></p>
+                    <span>2 hours ago</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- AI Insights Widget -->
+            <div class="split-column right-split card-glass-dark">
+              <div class="insights-header">
+                <h4 class="column-title"><i data-lucide="sparkles" class="col-cyan"></i> LeadFlow AI Insight</h4>
+                <span class="badge-growth">+18%</span>
+              </div>
+              <p class="insight-text">
+                Your outreach conversion rate is up <strong>18%</strong> this month. Diagnostics show that leading with <em>Website Load Speed</em> and <em>SEO Gaps</em> drives a <strong>2.8x higher response rate</strong> compared to general agency marketing.
+              </p>
+              
+              <!-- Mock Line Chart -->
+              <div class="mock-chart-container">
+                <div class="chart-label">Conversion Performance Trajectory</div>
+                <div class="chart-canvas-mock">
+                  <svg class="chart-svg" viewBox="0 0 300 100">
+                    <!-- Grid Lines -->
+                    <line x1="0" y1="20" x2="300" y2="20" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3"></line>
+                    <line x1="0" y1="50" x2="300" y2="50" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3"></line>
+                    <line x1="0" y1="80" x2="300" y2="80" stroke="rgba(255,255,255,0.05)" stroke-dasharray="3"></line>
+                    <!-- Area Gradient Fill -->
+                    <path d="M 0 90 Q 50 80 80 50 T 150 40 T 220 20 T 300 10 L 300 100 L 0 100 Z" fill="url(#chart-grad)" opacity="0.15"></path>
+                    <!-- Stroke Line -->
+                    <path d="M 0 90 Q 50 80 80 50 T 150 40 T 220 20 T 300 10" fill="none" stroke="url(#stroke-grad)" stroke-width="3"></path>
+                    <!-- Hot spot -->
+                    <circle cx="300" cy="10" r="5" fill="#00D4FF" class="chart-pulse-dot"></circle>
+                    
+                    <defs>
+                      <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#4F46E5"></stop>
+                        <stop offset="100%" stop-color="#4F46E5" stop-opacity="0"></stop>
+                      </linearGradient>
+                      <linearGradient id="stroke-grad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#4F46E5"></stop>
+                        <stop offset="100%" stop-color="#00D4FF"></stop>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div class="chart-xaxis">
+                  <span>Week 1</span>
+                  <span>Week 2</span>
+                  <span>Week 3</span>
+                  <span>Week 4</span>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Future Vision Section -->
+  <section class="roadmap-section" id="roadmap">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">Next-Gen Roadmap</span>
+        <h2 class="section-title">The future of autonomous sales operations.</h2>
+        <p class="section-sub">
+          We are building the intelligence layers for multi-channel sales representation. Here is what is coming next to LeadFlow Labs.
+        </p>
+      </div>
+      
+      <div class="roadmap-grid">
+        
+        <div class="roadmap-card">
+          <div class="rm-badge">LABS</div>
+          <h3 class="rm-title"><i data-lucide="phone-call" class="col-cyan"></i> AI Voice Agent</h3>
+          <p class="rm-desc">
+            Ultra-low latency conversational voice interfaces to handle cold calling qualification calls and outbound follow-up queries with natural human intonation.
+          </p>
+        </div>
+        
+        <div class="roadmap-card">
+          <div class="rm-badge">PLANNED</div>
+          <h3 class="rm-title"><i data-lucide="message-square-dashed" class="col-blue"></i> WhatsApp Automation</h3>
+          <p class="rm-desc">
+            Interact natively with prospects on mobile. Automatically construct chat pipelines, handle responses, and drop booking calendar invitations inside WhatsApp.
+          </p>
+        </div>
+        
+        <div class="roadmap-card">
+          <div class="rm-badge">PLANNED</div>
+          <h3 class="rm-title"><i data-lucide="linkedin" class="col-purple"></i> LinkedIn Outreach</h3>
+          <p class="rm-desc">
+            Sync LinkedIn networks to run multi-agent social outreach. Build lists, visit key targets, and coordinate messages with standard inbox systems.
+          </p>
+        </div>
+        
+        <div class="roadmap-card">
+          <div class="rm-badge">LABS</div>
+          <h3 class="rm-title"><i data-lucide="trending-up" class="col-green"></i> Predictive Conversion Analytics</h3>
+          <p class="rm-desc">
+            Machine learning forecast models that predict deal closure probabilities based on response sentiment dynamics, client profiles, and historical cycles.
+          </p>
+        </div>
+        
+        <div class="roadmap-card">
+          <div class="rm-badge">IN DEV</div>
+          <h3 class="rm-title"><i data-lucide="users-round" class="col-orange"></i> Multi-Agent Sales Teams</h3>
+          <p class="rm-desc">
+            Deploy coordinate swarms of AI agents acting in specialist roles (e.g., Prospector Agent, Quality Evaluator Agent, Outbox Writer Agent) for complete vertical operations.
+          </p>
+        </div>
+        
+        <div class="roadmap-card">
+          <div class="rm-badge">IN DEV</div>
+          <h3 class="rm-title"><i data-lucide="landmark" class="col-red"></i> Revenue Forecasting</h3>
+          <p class="rm-desc">
+            Link outbound campaign intensity directly with revenue forecasting charts, visualizing expected contract yields and future sales pipelines.
+          </p>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="final-cta" id="get-started">
+    <div class="cta-glow-bg"></div>
+    <div class="container text-center">
+      <div class="cta-box card-glass">
+        <h2 class="cta-headline">Stop Managing Leads. <br><span class="gradient-text">Start Closing Deals.</span></h2>
+        <p class="cta-sub">
+          LeadFlow AI handles qualification, outreach, follow-ups, and lead intelligence while your team focuses on growth. Join the future of autonomous sales operations.
+        </p>
+        <div class="cta-actions">
+          <a href="#get-started" class="btn btn-primary btn-lg">Get Started</a>
+          <a href="#demo" class="btn btn-secondary btn-lg" id="final-demo-btn">Book Demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <div class="logo">
+            <div class="logo-icon-small"></div>
+            <span class="logo-text">LeadFlow AI</span>
+          </div>
+          <p class="footer-desc">
+            Premium AI-native outbound qualification, diagnostic detection, and outreach systems.
+          </p>
+        </div>
+        <div class="footer-nav">
+          <div class="footer-col">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#showcase">Dashboard</a>
+            <a href="#roadmap">Labs Roadmap</a>
+          </div>
+          <div class="footer-col">
+            <h4>Technology</h4>
+            <span class="nav-item-mock">AI Qualification</span>
+            <span class="nav-item-mock">Reply Core</span>
+            <span class="nav-item-mock">Data Privacy</span>
+          </div>
+          <div class="footer-col">
+            <h4>Pricing</h4>
+            <span class="nav-item-mock">Standard Agency</span>
+            <span class="nav-item-mock">Enterprise Custom</span>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <span class="nav-item-mock">support@leadflow.ai</span>
+            <span class="nav-item-mock">sales@leadflow.ai</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 LeadFlow AI. All Rights Reserved.</p>
+        <p>Built for elite sales agencies.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Watch Demo Modal Overlay -->
+  <div class="demo-modal-overlay" id="demo-modal">
+    <div class="demo-modal card-glass">
+      <div class="modal-header">
+        <h3>LeadFlow AI Walkthrough Demonstration</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!-- Mock Video Player with Premium Visuals -->
+        <div class="mock-player">
+          <div class="player-overlay">
+            <i data-lucide="play-circle" class="player-play-icon"></i>
+            <span>Click to play interactive sales workflow demo</span>
+          </div>
+          <!-- Subtitle overlay -->
+          <div class="player-subtitles">
+            "LeadFlow AI scans inbound registers, compiles website logs, and schedules callbacks..."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+  <script>
+    // Initialize lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>

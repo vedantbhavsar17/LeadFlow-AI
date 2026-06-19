@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-secondary: hsl(var(--secondary));
+  --color-tertiary: hsl(var(--tertiary));
+  --color-muted: hsl(var(--muted));
+  --color-border: hsl(var(--border));
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.0rem;
+  --radius-xl: 1.5rem;
+}
+
+:root {
+  /* Design Tokens from design.md */
+  --background: 210 40% 98%; /* #F8FAFC (Slate 50) */
+  --foreground: 222 47% 11%; /* #0f172a (Slate 900) */
+  --primary: 239 84% 67%; /* #6366f1 (Indigo 500) */
+  --secondary: 161 84% 39%; /* #10b981 (Success Green) */
+  --tertiary: 260 92% 66%; /* #8b5cf6 (Violet) */
+  
+  --surface: 250 100% 99%; /* #faf8ff */
+  --surface-dim: 228 57% 89%; /* #d2d9f4 */
+  --surface-container-lowest: 0 0% 100%; /* #ffffff */
+  --surface-container-low: 235 100% 97%; /* #f2f3ff */
+  --surface-container: 231 100% 96%; /* #eaedff */
+  --surface-container-high: 230 100% 94%; /* #e2e7ff */
+  --surface-container-highest: 227 94% 92%; /* #dae2fd */
+  
+  --on-surface: 222 41% 13%; /* #131b2e */
+  --on-surface-variant: 246 10% 30%; /* #464554 */
+  
+  --border: 214.3 32% 91.4%; /* #E2E8F0 */
+  --muted: 210 40% 96.1%; /* #F1F5F9 */
+  
+  --radius-sm: 0.25rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: 'Geist', 'Outfit', sans-serif;
+}
+
+.font-sans {
+  font-family: 'Inter', sans-serif;
+}
