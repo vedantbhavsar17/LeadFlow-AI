@@ -75,7 +75,17 @@ def create_lead():
 @leads_bp.put("/<int:lead_id>")
 def update_lead(lead_id: int):
     """Update one lead."""
-    lead = LeadService().update_lead(lead_id, **_json_payload())
+    payload = _json_payload()
+    email = payload.get("email")
+    if email:
+        from database.extensions import db
+        from database.models import Lead
+        email_normalized = email.strip().lower()
+        existing = db.session.query(Lead).filter(Lead.email == email_normalized).filter(Lead.id != lead_id).first()
+        if existing:
+            db.session.delete(existing)
+            db.session.commit()
+    lead = LeadService().update_lead(lead_id, **payload)
     return jsonify({"lead": serialize_lead(lead)}), 200
 
 
@@ -131,35 +141,54 @@ def list_lead_followups(lead_id: int):
     """Return follow-up tasks for one lead."""
     from database.extensions import db
     from database.models import FollowupTask
+    import json
     session = db.session
     statement = select(FollowupTask).where(FollowupTask.lead_id == lead_id).order_by(FollowupTask.created_at.desc())
     tasks = session.scalars(statement).all()
-    return jsonify({
-        "followups": [
-            {
-                "id": str(t.id),
-                "lead_id": t.lead_id,
-                "channel": t.channel,
-                "reason": t.reason,
-                "due_at": t.due_at.isoformat() if t.due_at else None,
-                "status": t.status,
-                "completed_at": t.completed_at.isoformat() if t.completed_at else None,
-                "created_at": t.created_at.isoformat() if t.created_at else None,
-                # Test compatibility fields:
-                "title": t.reason,
-                "notes": t.reason,
-                "due_date": t.due_at.isoformat() if t.due_at else None,
-            }
-            for t in tasks
-        ]
-      }), 200
-
-
+    
+    followups_data = []
+    for t in tasks:
+        title = t.reason
+        notes = t.reason
+        description = t.reason
+        reason = t.reason
+        
+        if t.reason and t.reason.startswith("{") and t.reason.endswith("}"):
+            try:
+                parsed = json.loads(t.reason)
+                if isinstance(parsed, dict):
+                    title = parsed.get("title") or t.reason
+                    notes = parsed.get("notes") or t.reason
+                    description = parsed.get("description") or t.reason
+                    reason = parsed.get("reason") or t.reason
+            except Exception:
+                pass
+                
+        followups_data.append({
+            "id": str(t.id),
+            "lead_id": t.lead_id,
+            "channel": t.channel,
+            "reason": reason,
+            "due_at": t.due_at.isoformat() if t.due_at else None,
+            "status": t.status,
+            "completed_at": t.completed_at.isoformat() if t.completed_at else None,
+            "created_at": t.created_at.isoformat() if t.created_at else None,
+            # Test compatibility fields:
+            "title": title,
+            "notes": notes,
+            "description": description,
+            "due_date": t.due_at.isoformat() if t.due_at else None,
+        })
+        
+    return jsonify({"followups": followups_data}), 200
+ 
+ 
 @leads_bp.post("/<int:lead_id>/followups")
 def create_lead_followup(lead_id: int):
     """Create a follow-up task for a lead."""
     from followups.services import FollowupService
     from datetime import datetime
+    import json
     payload = _json_payload()
     
     # Handle Z suffix in ISO dates for datetime.fromisoformat
@@ -171,12 +200,20 @@ def create_lead_followup(lead_id: int):
     
     title = payload.get("title")
     notes = payload.get("notes")
-    reason = payload.get("reason") or title or notes or "Follow up"
+    description = payload.get("description")
+    reason_val = payload.get("reason") or title or description or notes or "Follow up"
+    
+    reason_json = json.dumps({
+        "title": title or reason_val,
+        "notes": notes or reason_val,
+        "description": description or reason_val,
+        "reason": reason_val
+    })
     
     followup = FollowupService().create_followup(
         lead_id=lead_id,
         channel=payload.get("channel", "email"),
-        reason=reason,
+        reason=reason_json,
         due_at=due_at
     )
     return jsonify({
@@ -184,13 +221,14 @@ def create_lead_followup(lead_id: int):
             "id": str(followup.id),
             "lead_id": followup.lead_id,
             "channel": followup.channel,
-            "reason": followup.reason,
+            "reason": reason_val,
             "due_at": followup.due_at.isoformat() if followup.due_at else None,
             "status": followup.status,
             "created_at": followup.created_at.isoformat() if followup.created_at else None,
             # Test compatibility fields:
-            "title": title or followup.reason,
-            "notes": notes or followup.reason,
+            "title": title or reason_val,
+            "notes": notes or reason_val,
+            "description": description or reason_val,
             "due_date": followup.due_at.isoformat() if followup.due_at else None,
         }
     }), 201

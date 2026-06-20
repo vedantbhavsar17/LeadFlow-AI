@@ -4,34 +4,35 @@ BASE_URL = "http://localhost:5000"
 TIMEOUT = 30
 
 def test_get_leads_id_followups_returns_followup_tasks():
-    lead_id = None
-    created_lead = None
-    
-    # Create a new lead to use for followups retrieval
+    # Step 1: Create a new lead to get a valid lead ID for testing
+    lead_data = {
+        "first_name": "Test",
+        "last_name": "User",
+        "email": "testuser@example.com",
+        "company": "Test Company"
+    }
+    lead = None
     try:
-        create_lead_payload = {
-            "first_name": "Test",
-            "last_name": "User",
-            "email": "test.user@example.com",
-            "company": "TestCompany"
-        }
-        create_response = requests.post(f"{BASE_URL}/api/leads", json=create_lead_payload, timeout=TIMEOUT)
-        assert create_response.status_code == 201, f"Expected status 201 but got {create_response.status_code}"
-        created_lead = create_response.json().get("lead")
-        assert created_lead is not None, "Response JSON does not contain 'lead'"
-        lead_id = created_lead.get("id")
-        assert lead_id is not None, "Created lead does not have an 'id'"
+        create_lead_resp = requests.post(f"{BASE_URL}/api/leads", json=lead_data, timeout=TIMEOUT)
+        assert create_lead_resp.status_code == 201, f"Expected 201 on lead creation but got {create_lead_resp.status_code}"
+        lead = create_lead_resp.json().get("lead")
+        assert lead is not None, "Lead data not returned in create response"
+        lead_id = lead.get("id")
+        assert lead_id is not None, "Lead ID missing in create response"
 
-        # Request followups for this lead
-        followups_response = requests.get(f"{BASE_URL}/api/leads/{lead_id}/followups", timeout=TIMEOUT)
-        assert followups_response.status_code == 200, f"Expected status 200 but got {followups_response.status_code}"
-        json_data = followups_response.json()
-        assert "followups" in json_data, "'followups' key not in response JSON"
-        assert isinstance(json_data["followups"], list), "'followups' is not a list"
+        # Step 2: Retrieve follow-up tasks for this lead (likely empty initially)
+        get_followups_resp = requests.get(f"{BASE_URL}/api/leads/{lead_id}/followups", timeout=TIMEOUT)
+        assert get_followups_resp.status_code == 200, f"Expected 200 on get followups but got {get_followups_resp.status_code}"
+        
+        followups_json = get_followups_resp.json()
+        assert isinstance(followups_json, dict), "Response JSON is not a dict"
+        assert "followups" in followups_json, "Response JSON missing 'followups' key"
+        followups = followups_json["followups"]
+        assert isinstance(followups, list), "'followups' is not a list"
 
     finally:
-        # Clean up - delete the lead if created 
-        if lead_id is not None:
+        # Clean up: delete the lead created for test
+        if lead and lead_id:
             try:
                 requests.delete(f"{BASE_URL}/api/leads/{lead_id}", timeout=TIMEOUT)
             except Exception:
