@@ -15,9 +15,11 @@ from database.base import BaseModel
 
 if TYPE_CHECKING:
     from database.models.ai_insight import AIInsight
+    from database.models.conversion_prediction import ConversionPrediction
     from database.models.customer import Customer
     from database.models.followup_task import FollowupTask
     from database.models.lead_activity import LeadActivity
+    from database.models.conversation_thread import ConversationThread
 
 
 class Lead(BaseModel):
@@ -66,6 +68,18 @@ class Lead(BaseModel):
         back_populates="lead",
         cascade="all, delete-orphan",
         uselist=False,
+        lazy="selectin",
+    )
+    conversation_threads: Mapped[list["ConversationThread"]] = relationship(
+        "ConversationThread",
+        back_populates="lead",
+        cascade="all, delete-orphan",
+        lazy="selectin",
+    )
+    conversion_predictions: Mapped[list["ConversionPrediction"]] = relationship(
+        "ConversionPrediction",
+        back_populates="lead",
+        cascade="all, delete-orphan",
         lazy="selectin",
     )
 

@@ -1,9 +1,5 @@
-"""Follow-up scheduler placeholder."""
+"""Follow-up scheduler exports."""
 
+from followups.scheduler.followup_scheduler import FollowupScheduler
 
-class FollowupScheduler:
-    """Placeholder for future follow-up scheduling."""
-
-    # TODO: Define scheduler interface.
-    pass
-
+__all__ = ["FollowupScheduler"]

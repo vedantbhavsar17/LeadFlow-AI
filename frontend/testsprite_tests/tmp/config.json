@@ -7,11 +7,11 @@
     "projectName": "frontend",
     "projectPath": "c:\\Users\\Kartik\\OneDrive\\Documents\\Desktop\\AI project\\LeadFlow-AI\\frontend",
     "testIds": [],
-    "additionalInstruction": "Please test all features including the landing page animations, pricing toggle, dashboard graphs, leads repository table, Kanban board deal movement, and settings configurations.",
+    "additionalInstruction": "",
     "serverMode": "development",
     "envs": {
       "API_KEY": "sk-user-Y6O7PwXBJAG3qfjoVfW7hYeHlt_qxUovt4BhNihVODmFdt8PSNBHJB52nyGrkITHcNwGs6rMDfH9JuJ39CsTD_VYudyJ-cJAyTgRl12DxngUXINjQq6vb8UfrY2ojoxrptc"
     }
   },
-  "serverPort": 50227
+  "serverPort": 56622
 }

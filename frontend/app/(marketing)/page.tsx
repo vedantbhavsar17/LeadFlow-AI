@@ -59,6 +59,9 @@ const STAGES = ["csv", "qualify", "pain-points", "outreach", "reply", "follow-up
 type Stage = typeof STAGES[number];
 
 export default function LandingPage() {
+  // Showcase chart interaction state
+  const [hoveredPoint, setHoveredPoint] = useState<{ x: number; y: number; week: string; value: string } | null>(null);
+
   // Demo Modal State
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   const [demoPlaying, setDemoPlaying] = useState(false);
@@ -431,17 +434,44 @@ LeadFlow AI`;
     "Lead Memory links records securely and triggers automated pipeline sequences...",
   ];
 
+  const handleChartInteraction = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const percentX = clickX / rect.width;
+    const svgX = percentX * 300; // viewBox width is 300
+
+    const points = [
+      { x: 80, y: 50, week: "Week 1", value: "18.2%" },
+      { x: 150, y: 40, week: "Week 2", value: "20.1%" },
+      { x: 220, y: 20, week: "Week 3", value: "22.8%" },
+      { x: 300, y: 10, week: "Week 4", value: "24.6%" }
+    ];
+
+    let closest = points[0];
+    let minDiff = Math.abs(svgX - points[0].x);
+
+    for (let i = 1; i < points.length; i++) {
+      const diff = Math.abs(svgX - points[i].x);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closest = points[i];
+      }
+    }
+
+    setHoveredPoint(closest);
+  };
+
   return (
     <div ref={scrollContainerRef}>
       {/* Premium Navigation */}
       <header className="navbar">
         <div className="nav-container">
-          <div className="logo">
-            <div className="logo-icon"></div>
+          <Link href="/" className="logo">
+            <img src="/logo.jpg" alt="LeadFlow Logo" className="logo-icon" />
             <span className="logo-text">
               LeadFlow <span className="ai-badge">AI</span>
             </span>
-          </div>
+          </Link>
           <nav className="nav-links">
             <a href="#features">Features</a>
             <a href="#showcase">Dashboard</a>
@@ -1249,7 +1279,7 @@ LeadFlow AI`;
             {/* Left Sidebar */}
             <div className="showcase-sidebar">
               <div className="sidebar-logo">
-                <div className="logo-icon-small"></div>
+                <img src="/logo.jpg" alt="LeadFlow Logo" className="logo-icon-small" />
                 <span>LeadFlow</span>
               </div>
               <div className="sidebar-menu">
@@ -1400,10 +1430,20 @@ LeadFlow AI`;
                   </p>
 
                   {/* Mock Line Chart */}
-                  <div className="mock-chart-container">
+                  <div 
+                    className="mock-chart-container" 
+                    style={{ position: "relative" }}
+                    onMouseMove={handleChartInteraction}
+                    onClick={handleChartInteraction}
+                    onMouseLeave={() => setHoveredPoint(null)}
+                  >
                     <div className="chart-label">Conversion Performance Trajectory</div>
                     <div className="chart-canvas-mock">
-                      <svg className="chart-svg" viewBox="0 0 300 100">
+                      <svg 
+                        className="chart-svg" 
+                        viewBox="0 0 300 100" 
+                        style={{ cursor: "pointer" }}
+                      >
                         <line x1="0" y1="20" x2="300" y2="20" stroke="rgba(255,255,255,0.05)" strokeDasharray="3"></line>
                         <line x1="0" y1="50" x2="300" y2="50" stroke="rgba(255,255,255,0.05)" strokeDasharray="3"></line>
                         <line x1="0" y1="80" x2="300" y2="80" stroke="rgba(255,255,255,0.05)" strokeDasharray="3"></line>
@@ -1412,7 +1452,37 @@ LeadFlow AI`;
 
                         <path d="M 0 90 Q 50 80 80 50 T 150 40 T 220 20 T 300 10" fill="none" stroke="url(#stroke-grad)" strokeWidth="3"></path>
 
-                        <circle cx="300" cy="10" r="5" fill="#00D4FF" className="chart-pulse-dot"></circle>
+                        <circle
+                          cx="80"
+                          cy="50"
+                          r="3"
+                          fill="#4F46E5"
+                          stroke="#00D4FF"
+                          strokeWidth="1"
+                          style={{ pointerEvents: "none" }}
+                        />
+
+                        <circle
+                          cx="150"
+                          cy="40"
+                          r="3"
+                          fill="#4F46E5"
+                          stroke="#00D4FF"
+                          strokeWidth="1"
+                          style={{ pointerEvents: "none" }}
+                        />
+
+                        <circle
+                          cx="220"
+                          cy="20"
+                          r="3"
+                          fill="#4F46E5"
+                          stroke="#00D4FF"
+                          strokeWidth="1"
+                          style={{ pointerEvents: "none" }}
+                        />
+
+                        <circle cx="300" cy="10" r="5" fill="#00D4FF" className="chart-pulse-dot" style={{ pointerEvents: "none" }}></circle>
 
                         <defs>
                           <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
@@ -1426,6 +1496,20 @@ LeadFlow AI`;
                         </defs>
                       </svg>
                     </div>
+
+                    {hoveredPoint && (
+                      <div 
+                        className="absolute bg-slate-950/90 border border-indigo-500/40 text-white rounded-lg px-2 py-1 text-[9px] shadow-[0_0_15px_rgba(79,70,229,0.3)] pointer-events-none transition-all duration-150 z-20 backdrop-blur-sm"
+                        style={{
+                          left: `${(hoveredPoint.x / 300) * 100}%`,
+                          top: `${(hoveredPoint.y / 100) * 100 - 35}%`,
+                          transform: 'translateX(-50%)',
+                        }}
+                      >
+                        <div className="font-bold text-indigo-300">{hoveredPoint.week}</div>
+                        <div>Conv. Rate: <span className="font-semibold text-[#00D4FF]">{hoveredPoint.value}</span></div>
+                      </div>
+                    )}
                     <div className="chart-xaxis">
                       <span>Week 1</span>
                       <span>Week 2</span>
@@ -1557,7 +1641,7 @@ LeadFlow AI`;
           <div className="footer-grid">
             <div className="footer-info">
               <div className="logo">
-                <div className="logo-icon-small"></div>
+                <img src="/logo.jpg" alt="LeadFlow Logo" className="logo-icon-small" />
                 <span className="logo-text">LeadFlow AI</span>
               </div>
               <p className="footer-desc">

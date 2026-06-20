@@ -40,7 +40,7 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the hero 'Get Started' button on the landing page to open the app dashboard and verify arrival on the dashboard.
+        # -> Click the 'Get Started' button in the hero section on the landing page.
         # Get Started link
         elem = page.get_by_text('Qualified Sales Conversations', exact=True).locator("xpath=ancestor-or-self::*[.//a][1]").get_by_role('link', name='Get Started', exact=True)
         await elem.click(timeout=10000)
@@ -48,12 +48,11 @@ async def run_test():
         # --> Assertions to verify final state
         
         # --> Verify the user lands on the dashboard
-        # Assert: The URL contains '/dashboard', confirming navigation to the dashboard.
-        await expect(page).to_have_url(re.compile("/dashboard"), timeout=15000), "The URL contains '/dashboard', confirming navigation to the dashboard."
-        # Assert: The sidebar 'Dashboard' link is visible, indicating the dashboard page is open.
-        await expect(page.locator("xpath=/html/body/div[3]/aside/div[1]/nav/a[1]").nth(0)).to_have_text("Dashboard", timeout=15000), "The sidebar 'Dashboard' link is visible, indicating the dashboard page is open."
-        # Assert: The dashboard shows the Total Leads metric '1,248', confirming dashboard content loaded.
-        await expect(page.locator("xpath=/html/body/div[3]/div/main/div/div[2]/div[1]/div[2]/span").nth(0)).to_have_text("1,248", timeout=15000), "The dashboard shows the Total Leads metric '1,248', confirming dashboard content loaded."
+        # Assert: The browser URL contains '/dashboard', indicating the dashboard page.
+        await expect(page).to_have_url(re.compile("/dashboard"), timeout=15000), "The browser URL contains '/dashboard', indicating the dashboard page."
+        await page.locator("xpath=/html/body/div[3]/div[1]/main/div/div[1]/button").nth(0).scroll_into_view_if_needed()
+        # Assert: The dashboard 'This Month' control is visible, confirming the dashboard UI is shown.
+        await expect(page.locator("xpath=/html/body/div[3]/div[1]/main/div/div[1]/button").nth(0)).to_be_visible(timeout=15000), "The dashboard 'This Month' control is visible, confirming the dashboard UI is shown."
         await asyncio.sleep(5)
 
     finally:

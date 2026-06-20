@@ -40,18 +40,26 @@ async def run_test():
         except Exception:
             pass
         
-        # -> click
+        # -> Click the 'Dashboard' link in the site header to open the Dashboard page.
         # Dashboard link
         elem = page.get_by_text('Roadmap', exact=True).locator("xpath=ancestor-or-self::*[.//a][1]").get_by_role('link', name='Dashboard', exact=True)
         await elem.click(timeout=10000)
         
-        # -> Scroll the dashboard down to reveal the full 'Conversion Performance Trajectory' chart area, then list svg elements inside the visible dashboard container to identify the correct chart SVG.
+        # -> Scroll the dashboard slightly to center the chart and then click the 'Conversion Performance Trajectory' chart to attempt to reveal a detailed-values tooltip.
         await page.mouse.wheel(0, 300)
         
+        # -> Click the visible '20.1%' chart detail text on the dashboard (the label showing Conv. Rate: 20.1%) to try to reveal a detailed-values tooltip or focused state.
+        # 20.1%
+        elem = page.get_by_text('20.1%', exact=True)
+        await elem.click(timeout=10000)
+        
         # --> Assertions to verify final state
-        current_url = await page.evaluate("() => window.location.href")
-        # Assert: page loaded with a URL (final outcome verified by the AI judge during the run)
-        assert current_url, 'Page should have loaded with a URL'
+        
+        # --> Verify detailed chart values are displayed
+        # Assert: Detailed chart overlay shows the 'Week 1' label.
+        await expect(page.locator("xpath=/html/body/div[2]/div/section[5]/div/div[2]/div[2]/div[3]/div[2]/div[2]").nth(0)).to_contain_text("Week 1", timeout=15000), "Detailed chart overlay shows the 'Week 1' label."
+        # Assert: Detailed chart overlay shows the conversion rate '18.2%'.
+        await expect(page.locator("xpath=/html/body/div[2]/div/section[5]/div/div[2]/div[2]/div[3]/div[2]/div[2]/div[3]/div[2]/span").nth(0)).to_contain_text("18.2%", timeout=15000), "Detailed chart overlay shows the conversion rate '18.2%'."
         await asyncio.sleep(5)
 
     finally:

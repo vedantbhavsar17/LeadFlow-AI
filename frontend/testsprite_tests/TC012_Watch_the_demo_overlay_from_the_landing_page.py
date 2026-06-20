@@ -40,7 +40,7 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Watch Demo' button in the hero section to open the demo walkthrough overlay and then verify that the demo overlay is displayed.
+        # -> Click the 'Watch Demo' button in the hero section to open the demo walkthrough overlay, then verify the overlay is displayed.
         # Watch Demo button
         elem = page.locator('[id="hero-demo-btn"]')
         await elem.click(timeout=10000)
@@ -48,14 +48,14 @@ async def run_test():
         # --> Assertions to verify final state
         
         # --> Verify the demo overlay is displayed
-        await page.locator("xpath=/html/body/div[2]/div[2]").nth(0).scroll_into_view_if_needed()
-        # Assert: The demo overlay container is visible on the page.
-        await expect(page.locator("xpath=/html/body/div[2]/div[2]").nth(0)).to_be_visible(timeout=15000), "The demo overlay container is visible on the page."
-        # Assert: The overlay displays the title 'LeadFlow AI Walkthrough Demonstration'.
-        await expect(page.locator("xpath=/html/body/div[2]/div[2]/div").nth(0)).to_contain_text("LeadFlow AI Walkthrough Demonstration", timeout=15000), "The overlay displays the title 'LeadFlow AI Walkthrough Demonstration'."
-        await page.locator("xpath=/html/body/div[2]/div[2]/div/div[1]/button").nth(0).scroll_into_view_if_needed()
-        # Assert: The overlay close (×) button is visible.
-        await expect(page.locator("xpath=/html/body/div[2]/div[2]/div/div[1]/button").nth(0)).to_be_visible(timeout=15000), "The overlay close (\u00d7) button is visible."
+        await page.locator("xpath=/html/body/div[2]/div/div[2]").nth(0).scroll_into_view_if_needed()
+        # Assert: The demo walkthrough modal is visible.
+        await expect(page.locator("xpath=/html/body/div[2]/div/div[2]").nth(0)).to_be_visible(timeout=15000), "The demo walkthrough modal is visible."
+        # Assert: The modal shows the play CTA text 'Click to play interactive sales workflow demo'.
+        await expect(page.locator("xpath=/html/body/div[2]/div/div[2]/div/div[2]/div/div[1]").nth(0)).to_have_text("Click to play interactive sales workflow demo", timeout=15000), "The modal shows the play CTA text 'Click to play interactive sales workflow demo'."
+        await page.locator("xpath=/html/body/div[2]/div/div[2]/div/div[1]/button").nth(0).scroll_into_view_if_needed()
+        # Assert: The modal's close (×) button is visible.
+        await expect(page.locator("xpath=/html/body/div[2]/div/div[2]/div/div[1]/button").nth(0)).to_be_visible(timeout=15000), "The modal's close (\u00d7) button is visible."
         await asyncio.sleep(5)
 
     finally:

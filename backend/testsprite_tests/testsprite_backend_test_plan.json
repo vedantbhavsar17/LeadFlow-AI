@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC001",
+    "title": "get all leads returns leads array",
+    "description": "Verify that GET /api/leads returns a 200 status code with an array of leads in the response body."
+  },
+  {
+    "id": "TC002",
+    "title": "post leads creates new lead",
+    "description": "Verify that POST /api/leads with valid first_name, last_name, email, and company creates a new lead, returns 201 status, and the lead can be retrieved with GET /api/leads/<id>."
+  },
+  {
+    "id": "TC003",
+    "title": "put leads updates existing lead",
+    "description": "Verify that PUT /api/leads/<id> with updated lead fields returns 200 status and the lead record is updated accordingly."
+  },
+  {
+    "id": "TC004",
+    "title": "patch leads status updates lead status",
+    "description": "Verify that PATCH /api/leads/<id>/status with a valid status value returns 200 status and the lead's status is updated and confirmed by GET /api/leads/<id>."
+  },
+  {
+    "id": "TC005",
+    "title": "patch leads stage updates lead stage",
+    "description": "Verify that PATCH /api/leads/<id>/stage with a valid stage value returns 200 status and the lead's stage is updated and confirmed by GET /api/leads/<id>."
+  },
+  {
+    "id": "TC006",
+    "title": "get leads id returns error for nonexistent lead",
+    "description": "Verify that GET /api/leads/<id> with a non-existent lead id returns an error response indicating the lead was not found."
+  },
+  {
+    "id": "TC007",
+    "title": "post leads returns validation error for missing fields",
+    "description": "Verify that POST /api/leads with missing required fields returns a validation error response."
+  },
+  {
+    "id": "TC008",
+    "title": "get leads id followups returns followup tasks",
+    "description": "Verify that GET /api/leads/<id>/followups returns 200 status with an array of follow-up tasks for the specified lead."
+  },
+  {
+    "id": "TC009",
+    "title": "post leads id followups creates followup task",
+    "description": "Verify that POST /api/leads/<id>/followups with valid follow-up details creates a new follow-up task, returns 201 status, and the task appears in subsequent GET /api/leads/<id>/followups responses."
+  },
+  {
+    "id": "TC010",
+    "title": "patch leads followups complete marks followup complete",
+    "description": "Verify that PATCH /api/leads/followups/<followup_id>/complete marks the specified follow-up task as completed and returns 200 status with updated follow-up status."
+  }
+]

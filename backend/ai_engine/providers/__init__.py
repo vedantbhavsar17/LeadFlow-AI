@@ -1,11 +1,9 @@
-"""AI provider abstraction placeholders."""
+"""AI provider exports."""
 
+from ai_engine.providers.base_provider import BaseAIProvider
+from ai_engine.providers.nim_provider import NIMProvider
+from ai_engine.providers.provider_factory import AIProviderFactory
 
-class AIProvider:
-    """Base provider contract placeholder."""
+AIProvider = BaseAIProvider
 
-    provider_name: str = "base"
-
-    # TODO: Define completion/chat interface without binding to a paid provider.
-    pass
-
+__all__ = ["AIProvider", "AIProviderFactory", "BaseAIProvider", "NIMProvider"]

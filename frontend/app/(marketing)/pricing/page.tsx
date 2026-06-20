@@ -17,14 +17,12 @@ export default function PricingPage() {
       {/* Premium Navigation */}
       <header className="navbar">
         <div className="nav-container">
-          <div className="logo">
-            <Link href="/" className="logo">
-              <div className="logo-icon"></div>
-              <span className="logo-text">
-                LeadFlow <span className="ai-badge">AI</span>
-              </span>
-            </Link>
-          </div>
+          <Link href="/" className="logo">
+            <img src="/logo.jpg" alt="LeadFlow Logo" className="logo-icon" />
+            <span className="logo-text">
+              LeadFlow <span className="ai-badge">AI</span>
+            </span>
+          </Link>
           <nav className="nav-links">
             <Link href="/#features">Features</Link>
             <Link href="/#showcase">Dashboard</Link>
@@ -466,7 +464,7 @@ export default function PricingPage() {
           <div className="footer-grid">
             <div className="footer-info">
               <div className="logo">
-                <div className="logo-icon-small"></div>
+                <img src="/logo.jpg" alt="LeadFlow Logo" className="logo-icon-small" />
                 <span className="logo-text">LeadFlow AI</span>
               </div>
               <p className="footer-desc">

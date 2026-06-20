@@ -15,6 +15,7 @@ import {
   Calendar,
   ChevronDown,
   ArrowRight,
+  Plus
 } from "lucide-react";
 import {
   AreaChart,
@@ -22,10 +23,9 @@ import {
   ResponsiveContainer,
   PieChart,
   Pie,
-  Cell,
-  LineChart,
-  Line,
+  Cell
 } from "recharts";
+import { useLeads } from "@/lib/lead-context";
 
 // Sparkline Mock Data
 const leadsSparkline = [
@@ -41,14 +41,6 @@ const rateSparkline = [
   { v: 15 }, { v: 18 }, { v: 16 }, { v: 20 }, { v: 19 }, { v: 22 }, { v: 24.6 },
 ];
 
-// Donut Chart Data
-const channelsData = [
-  { name: "Web Forms", value: 40, color: "#3B82F6" },
-  { name: "Ads", value: 30, color: "#10B981" },
-  { name: "Email", value: 20, color: "#8B5CF6" },
-  { name: "Referrals", value: 10, color: "#F59E0B" },
-];
-
 // AI Insight Sparkline Data
 const insightSparkline = [
   { v: 10 }, { v: 12 }, { v: 15 }, { v: 13 }, { v: 18 }, { v: 16 }, { v: 22 }, { v: 20 }, { v: 25 }, { v: 28 },
@@ -56,6 +48,7 @@ const insightSparkline = [
 
 export default function DashboardPage() {
   const [mounted, setMounted] = useState(false);
+  const { leads, activities, followups } = useLeads();
 
   useEffect(() => {
     setMounted(true);
@@ -67,6 +60,40 @@ export default function DashboardPage() {
         <div className="w-8 h-8 border-4 border-[#6366f1] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
+  }
+
+  // Calculate dynamic stats
+  const totalLeads = leads.length;
+  const hotLeads = leads.filter((l) => l.status === "HOT" && l.stage !== "converted").length;
+  const followupsDue = followups.filter((f) => f.status === "pending").length;
+  const convertedLeads = leads.filter((l) => l.stage === "converted").length;
+  const conversionRate = totalLeads > 0 ? ((convertedLeads / totalLeads) * 100).toFixed(1) : "0.0";
+
+  // Pipeline counts
+  const newCount = leads.filter((l) => l.stage === "new").length;
+  const qualifiedCount = leads.filter((l) => l.stage === "qualified").length;
+  const engagedCount = leads.filter((l) => ["outreach_sent", "customer_replied", "followup_scheduled"].includes(l.stage)).length;
+  
+  // Channels breakdown calculation
+  const sourceCounts: { [key: string]: number } = {};
+  leads.forEach((l) => {
+    const src = l.source || "Other";
+    sourceCounts[src] = (sourceCounts[src] || 0) + 1;
+  });
+
+  const colorsMap = ["#3B82F6", "#10B981", "#8B5CF6", "#F59E0B", "#EF4444", "#6B7280"];
+  const channelsData = Object.keys(sourceCounts).map((key, index) => {
+    const val = totalLeads > 0 ? Math.round((sourceCounts[key] / totalLeads) * 100) : 0;
+    return {
+      name: key,
+      value: val,
+      color: colorsMap[index % colorsMap.length],
+    };
+  });
+
+  // If no channels exist yet, default it
+  if (channelsData.length === 0) {
+    channelsData.push({ name: "Direct", value: 100, color: "#3B82F6" });
   }
 
   return (
@@ -89,7 +116,7 @@ export default function DashboardPage() {
             <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-display">Total Leads</span>
           </div>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-3xl font-bold font-display text-slate-800 tracking-tight">1,248</span>
+            <span className="text-3xl font-bold font-display text-slate-800 tracking-tight">{totalLeads}</span>
             <div className="p-2 bg-blue-50 rounded-full">
               <Users className="w-4 h-4 text-[#3B82F6]" />
             </div>
@@ -108,17 +135,17 @@ export default function DashboardPage() {
             </ResponsiveContainer>
           </div>
           <span className="text-xs text-emerald-600 flex items-center gap-1 font-semibold">
-            <ArrowUpRight className="w-3 h-3" /> 18.6% <span className="text-slate-400 font-medium">vs last month</span>
+            <ArrowUpRight className="w-3 h-3" /> +12.4% <span className="text-slate-400 font-medium">vs last week</span>
           </span>
         </div>
 
-        {/* Metric 2 - Qualified Leads */}
+        {/* Metric 2 - Hot Leads */}
         <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] transition-all flex flex-col">
           <div className="flex justify-between items-start mb-2">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-display">Qualified Leads</span>
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-display">Hot Leads</span>
           </div>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-3xl font-bold font-display text-slate-800 tracking-tight">312</span>
+            <span className="text-3xl font-bold font-display text-slate-800 tracking-tight">{hotLeads}</span>
             <div className="p-2 bg-emerald-50 rounded-full">
               <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
             </div>
@@ -137,17 +164,17 @@ export default function DashboardPage() {
             </ResponsiveContainer>
           </div>
           <span className="text-xs text-emerald-600 flex items-center gap-1 font-semibold">
-            <ArrowUpRight className="w-3 h-3" /> 21.3% <span className="text-slate-400 font-medium">vs last month</span>
+            <ArrowUpRight className="w-3 h-3" /> +18.2% <span className="text-slate-400 font-medium">vs last week</span>
           </span>
         </div>
 
-        {/* Metric 3 - Conversations */}
+        {/* Metric 3 - Followups Due */}
         <div className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.03)] transition-all flex flex-col">
           <div className="flex justify-between items-start mb-2">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-display">Conversations</span>
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-display">Followups Due</span>
           </div>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-3xl font-bold font-display text-slate-800 tracking-tight">128</span>
+            <span className="text-3xl font-bold font-display text-slate-800 tracking-tight">{followupsDue}</span>
             <div className="p-2 bg-purple-50 rounded-full">
               <MessageCircle className="w-4 h-4 text-[#8B5CF6]" />
             </div>
@@ -165,8 +192,8 @@ export default function DashboardPage() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <span className="text-xs text-emerald-600 flex items-center gap-1 font-semibold">
-            <ArrowUpRight className="w-3 h-3" /> 15.7% <span className="text-slate-400 font-medium">vs last month</span>
+          <span className="text-xs text-indigo-600 flex items-center gap-1 font-semibold">
+            Active tasks pending action
           </span>
         </div>
 
@@ -176,7 +203,7 @@ export default function DashboardPage() {
             <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider font-display">Conversion Rate</span>
           </div>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-3xl font-bold font-display text-slate-800 tracking-tight">24.6%</span>
+            <span className="text-3xl font-bold font-display text-slate-800 tracking-tight">{conversionRate}%</span>
             <div className="p-2 bg-indigo-50 rounded-full">
               <Target className="w-4 h-4 text-[#6366f1]" />
             </div>
@@ -195,7 +222,7 @@ export default function DashboardPage() {
             </ResponsiveContainer>
           </div>
           <span className="text-xs text-emerald-600 flex items-center gap-1 font-semibold">
-            <ArrowUpRight className="w-3 h-3" /> 6.4% <span className="text-slate-400 font-medium">vs last month</span>
+            <ArrowUpRight className="w-3 h-3" /> +2.1% <span className="text-slate-400 font-medium">vs last month</span>
           </span>
         </div>
       </div>
@@ -208,7 +235,7 @@ export default function DashboardPage() {
           {/* Step 1: Raw Leads */}
           <div className="w-full flex-1 relative bg-blue-50/50 border border-blue-100/50 rounded-xl p-5 flex flex-col items-center justify-center transition-all hover:bg-blue-50">
             <span className="text-xs font-semibold text-blue-500 uppercase tracking-wider font-display mb-1">Raw Leads</span>
-            <span className="text-2xl font-bold text-slate-800 font-display mb-3">1,248</span>
+            <span className="text-2xl font-bold text-slate-800 font-display mb-3">{newCount}</span>
             <div className="p-2 bg-blue-500/10 rounded-full text-blue-500">
               <Users className="w-4 h-4" />
             </div>
@@ -219,7 +246,7 @@ export default function DashboardPage() {
           {/* Step 2: Qualified */}
           <div className="w-full flex-1 relative bg-emerald-50/50 border border-emerald-100/50 rounded-xl p-5 flex flex-col items-center justify-center transition-all hover:bg-emerald-50">
             <span className="text-xs font-semibold text-emerald-600 uppercase tracking-wider font-display mb-1">Qualified</span>
-            <span className="text-2xl font-bold text-slate-800 font-display mb-3">312</span>
+            <span className="text-2xl font-bold text-slate-800 font-display mb-3">{qualifiedCount}</span>
             <div className="p-2 bg-emerald-500/10 rounded-full text-emerald-500">
               <CheckCircle2 className="w-4 h-4" />
             </div>
@@ -230,7 +257,7 @@ export default function DashboardPage() {
           {/* Step 3: Engaged */}
           <div className="w-full flex-1 relative bg-purple-50/50 border border-purple-100/50 rounded-xl p-5 flex flex-col items-center justify-center transition-all hover:bg-purple-50">
             <span className="text-xs font-semibold text-purple-600 uppercase tracking-wider font-display mb-1">Engaged</span>
-            <span className="text-2xl font-bold text-slate-800 font-display mb-3">128</span>
+            <span className="text-2xl font-bold text-slate-800 font-display mb-3">{engagedCount}</span>
             <div className="p-2 bg-purple-500/10 rounded-full text-purple-500">
               <MessageCircle className="w-4 h-4" />
             </div>
@@ -241,7 +268,7 @@ export default function DashboardPage() {
           {/* Step 4: Converted */}
           <div className="w-full flex-1 relative bg-teal-50/50 border border-teal-100/50 rounded-xl p-5 flex flex-col items-center justify-center transition-all hover:bg-teal-50">
             <span className="text-xs font-semibold text-teal-600 uppercase tracking-wider font-display mb-1">Converted</span>
-            <span className="text-2xl font-bold text-slate-800 font-display mb-3">78</span>
+            <span className="text-2xl font-bold text-slate-800 font-display mb-3">{convertedLeads}</span>
             <div className="p-2 bg-teal-500/10 rounded-full text-teal-500">
               <Star className="w-4 h-4 fill-current" />
             </div>
@@ -256,45 +283,42 @@ export default function DashboardPage() {
           <div>
             <h3 className="text-sm font-semibold font-display text-slate-800 uppercase tracking-wider mb-6">Recent Activity</h3>
             <div className="space-y-6">
-              <div className="flex gap-4 items-start">
-                <div className="w-8 h-8 rounded-full bg-blue-50 text-[#3B82F6] flex items-center justify-center shrink-0">
-                  <Send className="w-3.5 h-3.5" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-slate-800">AI outreach sent to 45 new leads</p>
-                  <span className="text-[10px] text-slate-400 mt-1 block">2 min ago</span>
-                </div>
-              </div>
+              {activities.length === 0 ? (
+                <div className="text-xs text-slate-400 text-center py-6">No recent activity. Ingest leads or run the demo script to populate this feed.</div>
+              ) : (
+                activities.slice(0, 5).map((act) => {
+                  const getIcon = () => {
+                    if (act.activity_type === "lead_created") return <Plus className="w-3.5 h-3.5" />;
+                    if (act.activity_type === "outreach_sent") return <Send className="w-3.5 h-3.5" />;
+                    if (act.activity_type === "reply_received") return <MessageCircle className="w-3.5 h-3.5" />;
+                    if (act.activity_type === "followup_created") return <Calendar className="w-3.5 h-3.5" />;
+                    if (act.activity_type === "followup_completed") return <Check className="w-3.5 h-3.5" />;
+                    return <Check className="w-3.5 h-3.5" />;
+                  };
+                  const getBg = () => {
+                    if (act.activity_type === "lead_created") return "bg-blue-50 text-blue-500";
+                    if (act.activity_type === "outreach_sent") return "bg-indigo-50 text-indigo-500";
+                    if (act.activity_type === "reply_received") return "bg-purple-50 text-purple-500";
+                    if (act.activity_type === "followup_created") return "bg-amber-50 text-amber-500";
+                    if (act.activity_type === "followup_completed") return "bg-emerald-50 text-emerald-500";
+                    return "bg-slate-50 text-slate-500";
+                  };
 
-              <div className="flex gap-4 items-start">
-                <div className="w-8 h-8 rounded-full bg-emerald-50 text-[#10B981] flex items-center justify-center shrink-0">
-                  <Check className="w-3.5 h-3.5" strokeWidth={3} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-slate-800">12 leads qualified automatically</p>
-                  <span className="text-[10px] text-slate-400 mt-1 block">15 min ago</span>
-                </div>
-              </div>
+                  const dateStr = act.created_at ? new Date(act.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Just now";
 
-              <div className="flex gap-4 items-start">
-                <div className="w-8 h-8 rounded-full bg-purple-50 text-[#8B5CF6] flex items-center justify-center shrink-0">
-                  <MessageCircle className="w-3.5 h-3.5" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-slate-800">3 new conversations started</p>
-                  <span className="text-[10px] text-slate-400 mt-1 block">1 hour ago</span>
-                </div>
-              </div>
-
-              <div className="flex gap-4 items-start">
-                <div className="w-8 h-8 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center shrink-0">
-                  <Star className="w-3.5 h-3.5" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-slate-800">New deal added: BrightFuture Inc.</p>
-                  <span className="text-[10px] text-slate-400 mt-1 block">2 hours ago</span>
-                </div>
-              </div>
+                  return (
+                    <div key={act.id} className="flex gap-4 items-start">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${getBg()}`}>
+                        {getIcon()}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-semibold text-slate-800 leading-normal">{act.note}</p>
+                        <span className="text-[10px] text-slate-400 mt-1 block">{dateStr}</span>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
           
@@ -313,15 +337,15 @@ export default function DashboardPage() {
             
             <div className="flex items-center gap-4 py-3">
               {/* Donut Canvas */}
-              <div className="relative w-[150px] h-[150px] shrink-0">
+              <div className="relative w-[130px] h-[130px] shrink-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={channelsData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={50}
-                      outerRadius={70}
+                      innerRadius={40}
+                      outerRadius={55}
                       paddingAngle={2}
                       dataKey="value"
                     >
@@ -333,20 +357,20 @@ export default function DashboardPage() {
                 </ResponsiveContainer>
                 {/* Center Labels */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <span className="text-2xl font-bold font-display text-slate-800 leading-none">1,248</span>
-                  <span className="text-[9px] text-slate-400 font-semibold uppercase tracking-wider mt-1">Total Leads</span>
+                  <span className="text-lg font-bold font-display text-slate-800 leading-none">{totalLeads}</span>
+                  <span className="text-[8px] text-slate-400 font-semibold uppercase tracking-wider mt-1">Leads</span>
                 </div>
               </div>
 
               {/* Legends list */}
-              <div className="flex-1 space-y-2 text-xs">
+              <div className="flex-1 space-y-2 text-xs min-w-0">
                 {channelsData.map((chan) => (
-                  <div key={chan.name} className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded shrink-0" style={{ backgroundColor: chan.color }}></span>
-                      <span className="text-slate-500 font-medium">{chan.name}</span>
+                  <div key={chan.name} className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <span className="w-2 h-2 rounded shrink-0" style={{ backgroundColor: chan.color }}></span>
+                      <span className="text-slate-500 font-medium truncate">{chan.name}</span>
                     </div>
-                    <span className="font-bold text-slate-700 font-display">{chan.value}%</span>
+                    <span className="font-bold text-slate-700 font-display shrink-0">{chan.value}%</span>
                   </div>
                 ))}
               </div>
@@ -372,8 +396,8 @@ export default function DashboardPage() {
             </div>
             
             <p className="text-sm text-slate-500 leading-relaxed font-sans pr-2">
-              Your conversion rate is up <strong className="text-slate-700">18%</strong> this month. <br />
-              Keep engaging! 🚀
+              Based on the {totalLeads} prospect records scanned, checkout latency remains the most common gap.
+              AI suggests adjusting the outbound copy configuration to target latency optimization.
             </p>
           </div>
 
@@ -381,7 +405,7 @@ export default function DashboardPage() {
           <div className="relative mt-8 pt-4">
             {/* Green bubble +18% */}
             <div className="absolute top-0 right-4 z-10 bg-emerald-50 text-emerald-600 border border-emerald-100 px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm flex items-center gap-0.5">
-              <span>+18%</span>
+              <span>Active</span>
             </div>
 
             <div className="h-[90px] w-full translate-y-3">
