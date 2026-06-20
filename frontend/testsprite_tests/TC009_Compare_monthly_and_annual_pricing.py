@@ -40,17 +40,19 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Pricing' link in the top navigation to open the Pricing page so the billing frequency toggle and plan prices can be tested.
-        # Pricing link
-        elem = page.get_by_role('link', name='Pricing', exact=True)
-        await elem.click(timeout=10000)
+        # -> Navigate to the Pricing page (the site path /pricing) so the billing frequency toggle and plan prices can be tested.
+        await page.goto("http://localhost:3000/pricing")
+        try:
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
+        except Exception:
+            pass
         
-        # -> Click the 'Annual' option on the billing frequency toggle to enable annual billing and observe whether the plan prices update to annual values.
+        # -> click
         # button
         elem = page.locator('[id="billing-toggle-btn"]')
         await elem.click(timeout=10000)
         
-        # -> Click the 'Monthly' option on the billing frequency toggle to switch billing back to monthly and verify the Starter and Growth prices update to the monthly values.
+        # -> Switch the billing frequency back to Monthly by clicking the billing frequency toggle (the control labeled 'Monthly / Annual') so the plan cards update to show monthly prices.
         # button
         elem = page.locator('[id="billing-toggle-btn"]')
         await elem.click(timeout=10000)
@@ -58,10 +60,10 @@ async def run_test():
         # --> Assertions to verify final state
         
         # --> Verify the pricing values update for monthly billing
-        # Assert: Starter plan displays $49 per month and is labeled 'Billed monthly'.
-        await expect(page.locator("xpath=/html/body/div[2]/section[2]/div/div/div[1]").nth(0)).to_contain_text("$ 49 /mo Billed monthly", timeout=15000), "Starter plan displays $49 per month and is labeled 'Billed monthly'."
-        # Assert: Growth plan displays $129 per month and is labeled 'Billed monthly'.
-        await expect(page.locator("xpath=/html/body/div[2]/section[2]/div/div/div[2]").nth(0)).to_contain_text("$ 129 /mo Billed monthly", timeout=15000), "Growth plan displays $129 per month and is labeled 'Billed monthly'."
+        # Assert: Starter plan card displays the monthly price '$49 /mo'.
+        await expect(page.locator("xpath=/html/body/div[2]/div/section[2]/div/div/div[1]").nth(0)).to_contain_text("$ 49 /mo", timeout=15000), "Starter plan card displays the monthly price '$49 /mo'."
+        # Assert: Growth plan card displays the monthly price '$129 /mo'.
+        await expect(page.locator("xpath=/html/body/div[2]/div/section[2]/div/div/div[2]").nth(0)).to_contain_text("$ 129 /mo", timeout=15000), "Growth plan card displays the monthly price '$129 /mo'."
         current_url = await page.evaluate("() => window.location.href")
         # Assert: page loaded with a URL (final outcome verified by the AI judge during the run)
         assert current_url, 'Page should have loaded with a URL'

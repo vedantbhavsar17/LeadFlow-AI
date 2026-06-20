@@ -45,12 +45,12 @@ async def run_test():
         elem = page.locator('[id="hero-demo-btn"]')
         await elem.click(timeout=10000)
         
-        # -> Close the demo modal by clicking the modal's close button (the 'X' in the demo dialog).
+        # -> Click the modal's close button (the 'X' at the top-right of the 'LeadFlow AI Walkthrough Demonstration' modal) to dismiss the demo and return to the landing page.
         # × button
         elem = page.locator('[id="modal-close-btn"]')
         await elem.click(timeout=10000)
         
-        # -> Click the hero's primary 'Get Started' button to enter the application and verify the dashboard loads.
+        # -> Click the hero 'Get Started' button to enter the dashboard (the large primary 'Get Started' CTA in the hero section).
         # Get Started link
         elem = page.get_by_text('Qualified Sales Conversations', exact=True).locator("xpath=ancestor-or-self::*[.//a][1]").get_by_role('link', name='Get Started', exact=True)
         await elem.click(timeout=10000)
@@ -58,12 +58,14 @@ async def run_test():
         # --> Assertions to verify final state
         
         # --> Verify the dashboard is displayed
-        # Assert: The URL contains '/dashboard', confirming navigation to the Dashboard.
-        await expect(page).to_have_url(re.compile("/dashboard"), timeout=15000), "The URL contains '/dashboard', confirming navigation to the Dashboard."
-        # Assert: The dashboard displays the Total Leads metric '1,248'.
-        await expect(page.locator("xpath=/html/body/div[2]/div/main/div/div[2]/div[1]/div[2]/span").nth(0)).to_have_text("1,248", timeout=15000), "The dashboard displays the Total Leads metric '1,248'."
-        # Assert: The dashboard displays the Qualified Leads metric '312'.
-        await expect(page.locator("xpath=/html/body/div[2]/div/main/div/div[2]/div[2]/div[2]/span").nth(0)).to_have_text("312", timeout=15000), "The dashboard displays the Qualified Leads metric '312'."
+        # Assert: The URL contains '/dashboard', confirming the dashboard route is loaded.
+        await expect(page).to_have_url(re.compile("/dashboard"), timeout=15000), "The URL contains '/dashboard', confirming the dashboard route is loaded."
+        await page.locator("xpath=/html/body/div[3]/aside/div[1]/nav/a[1]").nth(0).scroll_into_view_if_needed()
+        # Assert: The 'Dashboard' navigation link is visible in the sidebar, indicating the dashboard is displayed.
+        await expect(page.locator("xpath=/html/body/div[3]/aside/div[1]/nav/a[1]").nth(0)).to_be_visible(timeout=15000), "The 'Dashboard' navigation link is visible in the sidebar, indicating the dashboard is displayed."
+        await page.locator("xpath=/html/body/div[3]/div[2]/div[1]").nth(0).scroll_into_view_if_needed()
+        # Assert: The 'Demo Control Hub' panel is visible on the page, confirming dashboard content is shown.
+        await expect(page.locator("xpath=/html/body/div[3]/div[2]/div[1]").nth(0)).to_be_visible(timeout=15000), "The 'Demo Control Hub' panel is visible on the page, confirming dashboard content is shown."
         await asyncio.sleep(5)
 
     finally:

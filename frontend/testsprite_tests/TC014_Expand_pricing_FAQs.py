@@ -40,15 +40,15 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Pricing' link in the header to open the Pricing page.
+        # -> Click the 'Pricing' link in the top navigation to open the Pricing page.
         # Pricing link
         elem = page.get_by_role('link', name='Pricing', exact=True)
         await elem.click(timeout=10000)
         
-        # -> Scroll down the Pricing page to reveal the FAQ section so a visible FAQ question (e.g., a question titled like 'How is billing handled?' or any Pricing FAQ) can be clicked and expanded.
+        # -> Scroll down the Pricing page to reveal the FAQ section so an FAQ question can be clicked to expand and read its answer.
         await page.mouse.wheel(0, 300)
         
-        # -> Click the FAQ question 'How does the AI lead qualification engine score leads?' to expand it and read the displayed answer.
+        # -> Click the 'How does the AI lead qualification engine score leads?' FAQ question to expand it and reveal the answer.
         # How does the AI lead qualification engine score... button
         elem = page.get_by_role('button', name='How does the AI lead qualification engine score leads?', exact=True)
         await elem.click(timeout=10000)
@@ -56,11 +56,8 @@ async def run_test():
         # --> Assertions to verify final state
         
         # --> Verify the FAQ answer is displayed
-        await page.locator("xpath=/html/body/div[2]/section[4]/div/div[2]/div[1]").nth(0).scroll_into_view_if_needed()
-        # Assert: The FAQ answer panel for the selected question is visible on the Pricing page.
-        await expect(page.locator("xpath=/html/body/div[2]/section[4]/div/div[2]/div[1]").nth(0)).to_be_visible(timeout=15000), "The FAQ answer panel for the selected question is visible on the Pricing page."
-        # Assert: The expanded FAQ displays the expected answer text explaining how the AI lead qualification engine scores leads.
-        await expect(page.locator("xpath=/html/body/div[2]/section[4]/div/div[2]/div[1]").nth(0)).to_contain_text("LeadFlow AI reads the context parameters you input (such as CSV fields) and initiates diagnostic web spiders to check public registers, domain metadata, speed logs, and mobile alignment. It cross-references this with client criteria to calculate a qualification confidence rating (HOT, WARM, COLD).", timeout=15000), "The expanded FAQ displays the expected answer text explaining how the AI lead qualification engine scores leads."
+        # Assert: The FAQ answer is displayed with the expected explanatory text.
+        await expect(page.locator("xpath=/html/body/div[2]/div/section[4]/div/div[2]/div[1]").nth(0)).to_contain_text("LeadFlow AI reads the context parameters you input (such as CSV fields) and initiates diagnostic web spiders to check public registers, domain metadata, speed logs, and mobile alignment. It cross-references this with client criteria to calculate a qualification confidence rating (HOT, WARM, COLD).", timeout=15000), "The FAQ answer is displayed with the expected explanatory text."
         await asyncio.sleep(5)
 
     finally:

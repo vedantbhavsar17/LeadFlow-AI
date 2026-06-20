@@ -1,0 +1,119 @@
+version: "2"
+type: backend
+tech_stack:
+  - Python
+  - Flask
+  - SQLAlchemy
+  - SQLite
+features:
+  - name: Lead Management API
+    description: Operations to retrieve, create, update, and change stage/status of leads
+    files:
+      - api/leads.py
+      - database/models/lead.py
+      - crm_core/services/lead_service.py
+    endpoints:
+      - method: GET
+        path: /api/leads
+        description: List all leads with optional filters
+        auth_required: false
+        response_schema:
+          "200": "{ leads: Lead[] }"
+      - method: POST
+        path: /api/leads
+        description: Create a new lead
+        auth_required: false
+        request_schema:
+          body:
+            first_name: string
+            last_name: string
+            email: string
+            company: string
+        response_schema:
+          "201": "{ lead: Lead }"
+      - method: GET
+        path: /api/leads/<id>
+        description: Retrieve a single lead
+        auth_required: false
+        response_schema:
+          "200": "{ lead: Lead }"
+      - method: PUT
+        path: /api/leads/<id>
+        description: Update an existing lead
+        auth_required: false
+        response_schema:
+          "200": "{ lead: Lead }"
+      - method: PATCH
+        path: /api/leads/<id>/status
+        description: Change a lead's status
+        auth_required: false
+        response_schema:
+          "200": "{ lead: Lead }"
+      - method: PATCH
+        path: /api/leads/<id>/stage
+        description: Change a lead's stage
+        auth_required: false
+        response_schema:
+          "200": "{ lead: Lead }"
+  - name: Lead Engagement API
+    description: Operations for managing conversations, suggested replies, and follow-up tasks
+    files:
+      - api/leads.py
+      - database/models/followup_task.py
+      - database/models/conversation_thread.py
+    endpoints:
+      - method: GET
+        path: /api/leads/<id>/followups
+        description: Retrieve follow-up tasks for a lead
+        auth_required: false
+        response_schema:
+          "200": "{ followups: FollowupTask[] }"
+      - method: POST
+        path: /api/leads/<id>/followups
+        description: Create a follow-up task for a lead
+        auth_required: false
+        response_schema:
+          "201": "{ followup: FollowupTask }"
+      - method: PATCH
+        path: /api/leads/followups/<followup_id>/complete
+        description: Complete a follow-up task
+        auth_required: false
+        response_schema:
+          "200": "{ followup: FollowupTask }"
+      - method: GET
+        path: /api/leads/<id>/messages
+        description: Retrieve conversation thread messages and AI suggested replies
+        auth_required: false
+        response_schema:
+          "200": "{ messages: Message[], suggested_reply: string }"
+      - method: POST
+        path: /api/leads/<id>/messages
+        description: Send or receive a message
+        auth_required: false
+        response_schema:
+          "201": "{ message: Message }"
+      - method: GET
+        path: /api/leads/conversations
+        description: Retrieve all conversation threads in system
+        auth_required: false
+        response_schema:
+          "200": "{ conversations: Conversation[] }"
+  - name: Business Context API
+    description: Manage business profile configurations
+    files:
+      - api/business_context.py
+      - database/models/business_context.py
+    endpoints:
+      - method: GET
+        path: /api/business-context
+        description: Retrieve the current business context
+        auth_required: false
+        response_schema:
+          "200": "{ business_context: BusinessContext }"
+      - method: POST
+        path: /api/business-context
+        description: Save/create a business context
+        auth_required: false
+        response_schema:
+          "200": "{ business_context: BusinessContext }"
+known_limitations: []

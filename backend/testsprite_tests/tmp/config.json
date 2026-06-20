@@ -1,0 +1,18 @@
+{
+  "status": "commited",
+  "type": "backend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:5000",
+  "backendAuthType": "public",
+  "executionArgs": {
+    "projectName": "backend",
+    "projectPath": "c:\\Users\\Kartik\\OneDrive\\Documents\\Desktop\\AI project\\LeadFlow-AI\\backend",
+    "testIds": [],
+    "additionalInstruction": "",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-Y6O7PwXBJAG3qfjoVfW7hYeHlt_qxUovt4BhNihVODmFdt8PSNBHJB52nyGrkITHcNwGs6rMDfH9JuJ39CsTD_VYudyJ-cJAyTgRl12DxngUXINjQq6vb8UfrY2ojoxrptc"
+    }
+  },
+  "serverPort": 50749
+}

@@ -22,10 +22,12 @@ EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 LEAD_STAGES = {
     "new",
     "qualified",
+    "qualification",
     "engaged",
     "follow_up_needed",
     "meeting_booked",
     "proposal_sent",
+    "negotiation",
     "converted",
     "lost",
 }
@@ -302,11 +304,12 @@ class LeadService:
     @staticmethod
     def _validate_choice(value: str, allowed_values: set[str], field_name: str) -> str:
         """Validate a string against an allowed value set."""
-        normalized = str(value or "").strip().lower()
+        val_str = str(value or "").strip()
+        normalized = val_str.lower()
         if normalized not in allowed_values:
             allowed = ", ".join(sorted(allowed_values))
             raise ValidationError(f"{field_name} must be one of: {allowed}.")
-        return normalized
+        return val_str
 
     @staticmethod
     def _clean_optional(value: Any) -> str | None:

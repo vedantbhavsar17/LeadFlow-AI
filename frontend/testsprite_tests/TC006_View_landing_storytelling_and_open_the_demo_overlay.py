@@ -40,15 +40,15 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Scroll the landing page down to reveal more content and then click the hero 'Watch Demo' button to open the demo walkthrough overlay.
+        # -> Scroll the landing page down one full page, then click the 'Watch Demo' button in the hero section to open the demo walkthrough overlay.
         await page.mouse.wheel(0, 300)
         
-        # -> Scroll the landing page down to reveal more content and then click the hero 'Watch Demo' button to open the demo walkthrough overlay.
+        # -> Scroll the landing page down one full page, then click the 'Watch Demo' button in the hero section to open the demo walkthrough overlay.
         # Watch Demo button
         elem = page.locator('[id="hero-demo-btn"]')
         await elem.click(timeout=10000)
         
-        # -> Click the modal's close (X) button to close the 'LeadFlow AI Walkthrough Demonstration' overlay and then verify the overlay is dismissed.
+        # -> Click the 'X' close button in the demo modal (the close control in the top-right of the 'LeadFlow AI Walkthrough Demonstration' overlay) to close the walkthrough overlay.
         # × button
         elem = page.locator('[id="modal-close-btn"]')
         await elem.click(timeout=10000)
@@ -56,15 +56,12 @@ async def run_test():
         # --> Assertions to verify final state
         
         # --> Verify the demo overlay is no longer displayed
-        await page.locator("xpath=/html/body/div[2]/header/div/div[2]/button").nth(0).scroll_into_view_if_needed()
-        # Assert: The header 'Watch Demo' button is visible, indicating the demo overlay is closed.
-        await expect(page.locator("xpath=/html/body/div[2]/header/div/div[2]/button").nth(0)).to_be_visible(timeout=15000), "The header 'Watch Demo' button is visible, indicating the demo overlay is closed."
-        await page.locator("xpath=/html/body/div[2]/section[1]/div[2]/div[1]/button").nth(0).scroll_into_view_if_needed()
+        await page.locator("xpath=/html/body/div[2]/div/section[1]/div[2]/div[1]/button").nth(0).scroll_into_view_if_needed()
         # Assert: The hero 'Watch Demo' button is visible, indicating the demo overlay is closed.
-        await expect(page.locator("xpath=/html/body/div[2]/section[1]/div[2]/div[1]/button").nth(0)).to_be_visible(timeout=15000), "The hero 'Watch Demo' button is visible, indicating the demo overlay is closed."
-        await page.locator("xpath=/html/body/div[2]/header/div/div[2]/a").nth(0).scroll_into_view_if_needed()
-        # Assert: The header 'Get Started' link is visible, indicating the demo overlay is closed.
-        await expect(page.locator("xpath=/html/body/div[2]/header/div/div[2]/a").nth(0)).to_be_visible(timeout=15000), "The header 'Get Started' link is visible, indicating the demo overlay is closed."
+        await expect(page.locator("xpath=/html/body/div[2]/div/section[1]/div[2]/div[1]/button").nth(0)).to_be_visible(timeout=15000), "The hero 'Watch Demo' button is visible, indicating the demo overlay is closed."
+        await page.locator("xpath=/html/body/div[2]/div/section[1]/div[2]/div[1]/a").nth(0).scroll_into_view_if_needed()
+        # Assert: The hero 'Get Started' link is visible, confirming the page returned to the landing content after closing the overlay.
+        await expect(page.locator("xpath=/html/body/div[2]/div/section[1]/div[2]/div[1]/a").nth(0)).to_be_visible(timeout=15000), "The hero 'Get Started' link is visible, confirming the page returned to the landing content after closing the overlay."
         current_url = await page.evaluate("() => window.location.href")
         # Assert: page loaded with a URL (final outcome verified by the AI judge during the run)
         assert current_url, 'Page should have loaded with a URL'

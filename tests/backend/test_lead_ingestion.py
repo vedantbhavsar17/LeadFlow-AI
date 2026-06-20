@@ -13,9 +13,7 @@ from lead_ingestion.services import IngestionOrchestrator
 @pytest.fixture()
 def app_context():
     """Create an in-memory database context for ingestion tests."""
-    app = create_app()
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
-    app.config["TESTING"] = True
+    app = create_app(config_overrides={"SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:", "TESTING": True})
     ctx = app.app_context()
     ctx.push()
     db.create_all()

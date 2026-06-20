@@ -40,36 +40,49 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Click the 'Dashboard' link in the top navigation to open the Dashboard page.
+        # -> Click the 'Dashboard' link in the top navigation to open the dashboard page and then verify metric cards, charts, and recent activity.
         # Dashboard link
         elem = page.get_by_text('Roadmap', exact=True).locator("xpath=ancestor-or-self::*[.//a][1]").get_by_role('link', name='Dashboard', exact=True)
         await elem.click(timeout=10000)
         
+        # -> navigate
+        await page.goto("http://localhost:3000/dashboard")
+        try:
+            await page.wait_for_load_state("domcontentloaded", timeout=5000)
+        except Exception:
+            pass
+        
         # --> Assertions to verify final state
         
         # --> Verify lead metric cards are displayed
-        await page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[1]/div/span").nth(0).scroll_into_view_if_needed()
-        # Assert: The metrics section labeled 'This Month' is visible.
-        await expect(page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[1]/div/span").nth(0)).to_be_visible(timeout=15000), "The metrics section labeled 'This Month' is visible."
+        # Assert: Total Leads metric card is visible and shows '1'.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[1]/div[2]/span").nth(0)).to_have_text("1", timeout=15000), "Total Leads metric card is visible and shows '1'."
+        # Assert: Hot Leads metric card is visible and shows '1'.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[2]/div[2]/span").nth(0)).to_have_text("1", timeout=15000), "Hot Leads metric card is visible and shows '1'."
+        # Assert: Followups Due metric card is visible and shows '1'.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[3]/div[2]/span").nth(0)).to_have_text("1", timeout=15000), "Followups Due metric card is visible and shows '1'."
         
         # --> Verify dashboard charts are displayed
-        await page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[2]/div[1]/div/svg").nth(0).scroll_into_view_if_needed()
-        # Assert: A dashboard chart SVG is visible on the page.
-        await expect(page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[2]/div[1]/div/svg").nth(0)).to_be_visible(timeout=15000), "A dashboard chart SVG is visible on the page."
-        # Assert: The LeadFlow AI Insight tile displays '+18%'.
-        await expect(page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[3]/div[2]/div[1]/span").nth(0)).to_have_text("+18%", timeout=15000), "The LeadFlow AI Insight tile displays '+18%'."
+        await page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[1]/div[3]/div/div/div/svg").nth(0).scroll_into_view_if_needed()
+        # Assert: Dashboard chart SVG (card 1) is visible.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[1]/div[3]/div/div/div/svg").nth(0)).to_be_visible(timeout=15000), "Dashboard chart SVG (card 1) is visible."
+        await page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[2]/div[3]/div/div/div/svg").nth(0).scroll_into_view_if_needed()
+        # Assert: Dashboard chart SVG (card 2) is visible.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[2]/div[3]/div/div/div/svg").nth(0)).to_be_visible(timeout=15000), "Dashboard chart SVG (card 2) is visible."
+        await page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[3]/div[3]/div/div/div/svg").nth(0).scroll_into_view_if_needed()
+        # Assert: Dashboard chart SVG (card 3) is visible.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[3]/div[3]/div/div/div/svg").nth(0)).to_be_visible(timeout=15000), "Dashboard chart SVG (card 3) is visible."
+        await page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[4]/div[3]/div/div/div/svg").nth(0).scroll_into_view_if_needed()
+        # Assert: Dashboard chart SVG (card 4) is visible.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[4]/div[3]/div/div/div/svg").nth(0)).to_be_visible(timeout=15000), "Dashboard chart SVG (card 4) is visible."
         
         # --> Verify recent activity entries are displayed
-        # Assert: The 'Recent Pipeline Activity' header is visible on the dashboard.
-        await expect(page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[3]/div[1]").nth(0)).to_contain_text("Recent Pipeline Activity", timeout=15000), "The 'Recent Pipeline Activity' header is visible on the dashboard."
-        # Assert: A recent activity entry about an AI outreach email delivery is displayed.
-        await expect(page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[3]/div[1]").nth(0)).to_contain_text("AI outreach email delivered to 45", timeout=15000), "A recent activity entry about an AI outreach email delivery is displayed."
-        await page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[3]/div[1]/div/div[3]/div[1]").nth(0).scroll_into_view_if_needed()
-        # Assert: A recent activity entry item container is visible.
-        await expect(page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[3]/div[1]/div/div[3]/div[1]").nth(0)).to_be_visible(timeout=15000), "A recent activity entry item container is visible."
-        await page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[3]/div[1]/div/div[4]/div[1]").nth(0).scroll_into_view_if_needed()
-        # Assert: An additional recent activity entry item container is visible.
-        await expect(page.locator("xpath=/html/body/div[2]/section[5]/div/div[2]/div[2]/div[3]/div[1]/div/div[4]/div[1]").nth(0)).to_be_visible(timeout=15000), "An additional recent activity entry item container is visible."
+        await page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[4]/div[1]/div[1]/div/div[1]/div[1]").nth(0).scroll_into_view_if_needed()
+        # Assert: The recent activity container is visible on the dashboard.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[4]/div[1]/div[1]/div/div[1]/div[1]").nth(0)).to_be_visible(timeout=15000), "The recent activity container is visible on the dashboard."
+        await page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[4]/div[1]/div[2]/button").nth(0).scroll_into_view_if_needed()
+        # Assert: The 'View all activity' button for recent activity is visible.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[4]/div[1]/div[2]/button").nth(0)).to_be_visible(timeout=15000), "The 'View all activity' button for recent activity is visible."
         await asyncio.sleep(5)
 
     finally:

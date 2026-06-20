@@ -40,20 +40,20 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Leads repository page (Leads) by navigating to the /leads URL.
+        # -> Open the Leads page by navigating to the /leads path so the leads search field and status filter become available.
         await page.goto("http://localhost:3000/leads")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Type 'Delta' into the search field labeled 'Search prospect name, company, or industry...' and then click the 'HOT' status filter to narrow the leads list.
+        # -> Type 'Northstar' into the leads search field (the input labeled 'Search prospect name, company, or industry...') and then click the 'HOT' status filter button to narrow results.
         # Search prospect name, company, or industry... text field
         elem = page.get_by_placeholder('Search prospect name, company, or industry...', exact=True)
         await elem.wait_for(state="visible", timeout=10000)
-        await elem.fill("Delta")
+        await elem.fill("Northstar")
         
-        # -> Type 'Delta' into the search field labeled 'Search prospect name, company, or industry...' and then click the 'HOT' status filter to narrow the leads list.
+        # -> Type 'Northstar' into the leads search field (the input labeled 'Search prospect name, company, or industry...') and then click the 'HOT' status filter button to narrow results.
         # HOT button
         elem = page.get_by_role('button', name='HOT', exact=True)
         await elem.click(timeout=10000)
@@ -61,13 +61,13 @@ async def run_test():
         # --> Assertions to verify final state
         
         # --> Verify the matching leads list is displayed
-        await page.locator("xpath=/html/body/div[2]/div/main/div/div[3]/div/table/tbody/tr").nth(0).scroll_into_view_if_needed()
-        # Assert: The matching lead row for 'Delta Logistics' is visible in the leads list.
-        await expect(page.locator("xpath=/html/body/div[2]/div/main/div/div[3]/div/table/tbody/tr").nth(0)).to_be_visible(timeout=15000), "The matching lead row for 'Delta Logistics' is visible in the leads list."
-        # Assert: The prospect name 'Delta Logistics' appears in the results.
-        await expect(page.locator("xpath=/html/body/div[2]/div/main/div/div[3]/div/table/tbody/tr/td[1]").nth(0)).to_contain_text("Delta Logistics", timeout=15000), "The prospect name 'Delta Logistics' appears in the results."
-        # Assert: The result shows a 'HOT' status badge.
-        await expect(page.locator("xpath=/html/body/div[2]/div/main/div/div[3]/div/table/tbody/tr/td[5]/span").nth(0)).to_have_text("HOT", timeout=15000), "The result shows a 'HOT' status badge."
+        await page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[3]/div/table/tbody/tr").nth(0).scroll_into_view_if_needed()
+        # Assert: A matching lead row is visible in the leads table.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[3]/div/table/tbody/tr").nth(0)).to_be_visible(timeout=15000), "A matching lead row is visible in the leads table."
+        # Assert: The leads list contains the prospect name 'Northstar Growth'.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[3]/div/table/tbody/tr/td[1]/div/span[1]").nth(0)).to_contain_text("Northstar Growth", timeout=15000), "The leads list contains the prospect name 'Northstar Growth'."
+        # Assert: The matching lead entry shows the status 'HOT'.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[3]/div/table/tbody/tr").nth(0)).to_contain_text("HOT", timeout=15000), "The matching lead entry shows the status 'HOT'."
         await asyncio.sleep(5)
 
     finally:

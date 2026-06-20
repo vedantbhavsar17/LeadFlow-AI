@@ -40,14 +40,29 @@ async def run_test():
         except Exception:
             pass
         
-        # -> Open the Pipeline page by navigating to the /pipeline URL so the Kanban board can be accessed.
+        # -> Navigate to the application's Pipeline page (URL path /pipeline) and observe whether the pipeline board and deal cards are present.
         await page.goto("http://localhost:3000/pipeline")
         try:
             await page.wait_for_load_state("domcontentloaded", timeout=5000)
         except Exception:
             pass
         
-        # -> Click the forward 'Move Deal' arrow on the TechCorp card (the right-arrow Move Deal control) to advance it to the next stage (Qualified).
+        # -> Open the 'Northstar Growth' deal card and click the 'Qualified' stage button to move the card to the next (Qualified) column.
+        # Northstar Growth
+        elem = page.get_by_text('Northstar Growth', exact=True)
+        await elem.click(timeout=10000)
+        
+        # -> Open the 'Northstar Growth' deal card and click the 'Qualified' stage button to move the card to the next (Qualified) column.
+        # button
+        elem = page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[1]/div[2]/div/div[2]/button[2]").nth(0)
+        await elem.click(timeout=10000)
+        
+        # -> Click the 'Pipeline' link in the left sidebar to return to the pipeline board and verify that the 'Northstar Growth' card is displayed in the 'Qualified' column.
+        # Pipeline link
+        elem = page.get_by_role('link', name='Pipeline', exact=True)
+        await elem.click(timeout=10000)
+        
+        # -> click
         # button
         elem = page.locator('xpath=/html/body/div[2]/div/main/div/div[2]/div/div[2]/div/div[2]/button[2]')
         await elem.click(timeout=10000)
@@ -55,9 +70,10 @@ async def run_test():
         # --> Assertions to verify final state
         
         # --> Verify the card is displayed in the updated stage column
-        await page.locator("xpath=/html/body/div[2]/div/main/div/div[2]/div[2]/div[2]/div[1]/div[1]/span").nth(0).scroll_into_view_if_needed()
-        # Assert: The TechCorp card's identifier '32' is visible in the updated stage column.
-        await expect(page.locator("xpath=/html/body/div[2]/div/main/div/div[2]/div[2]/div[2]/div[1]/div[1]/span").nth(0)).to_be_visible(timeout=15000), "The TechCorp card's identifier '32' is visible in the updated stage column."
+        # Assert: The pipeline contains the deal card titled 'Northstar Growth' in the updated column.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[2]/div[2]/div/div[1]/h4").nth(0)).to_have_text("Northstar Growth", timeout=15000), "The pipeline contains the deal card titled 'Northstar Growth' in the updated column."
+        # Assert: The 'Qualified' column shows a count of 1, confirming the card moved into that column.
+        await expect(page.locator("xpath=/html/body/div[2]/div[1]/main/div/div[2]/div[2]/div[1]/span[2]").nth(0)).to_have_text("1", timeout=15000), "The 'Qualified' column shows a count of 1, confirming the card moved into that column."
         await asyncio.sleep(5)
 
     finally:
