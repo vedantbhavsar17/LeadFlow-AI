@@ -175,12 +175,17 @@ export default function LandingPage() {
       const trackHeight = trackRect.height;
 
       const totalScrollable = trackHeight - window.innerHeight;
-      let progress = -trackTop / totalScrollable;
-      progress = Math.min(Math.max(progress, 0), 1);
+      let progress = 0;
+      if (totalScrollable > 0) {
+        progress = -trackTop / totalScrollable;
+        progress = Math.min(Math.max(progress, 0), 1);
+      }
 
       const totalScenes = 6;
       const sceneIndex = Math.min(Math.floor(progress * totalScenes), totalScenes - 1);
       const sceneProgress = progress * totalScenes - sceneIndex;
+
+
 
       // Update text scenes
       const textScenes = scrollContainer.querySelectorAll(".scene-text");
@@ -282,21 +287,29 @@ export default function LandingPage() {
       if (sceneIndex === 2) {
         if (laserLine) laserLine.classList.add("animating");
 
-        if (sceneProgress > 0.1) diagnosticItems[0].classList.add("revealed");
-        else diagnosticItems[0].classList.remove("revealed");
+        if (diagnosticItems[0]) {
+          if (sceneProgress > 0.1) diagnosticItems[0].classList.add("revealed");
+          else diagnosticItems[0].classList.remove("revealed");
+        }
 
-        if (sceneProgress > 0.3) diagnosticItems[1].classList.add("revealed");
-        else diagnosticItems[1].classList.remove("revealed");
+        if (diagnosticItems[1]) {
+          if (sceneProgress > 0.3) diagnosticItems[1].classList.add("revealed");
+          else diagnosticItems[1].classList.remove("revealed");
+        }
 
-        if (sceneProgress > 0.5) diagnosticItems[2].classList.add("revealed");
-        else diagnosticItems[2].classList.remove("revealed");
+        if (diagnosticItems[2]) {
+          if (sceneProgress > 0.5) diagnosticItems[2].classList.add("revealed");
+          else diagnosticItems[2].classList.remove("revealed");
+        }
 
-        if (sceneProgress > 0.7) {
-          diagnosticItems[3].classList.add("revealed");
-          if (diagnosticFooter) diagnosticFooter.classList.add("revealed");
-        } else {
-          diagnosticItems[3].classList.remove("revealed");
-          if (diagnosticFooter) diagnosticFooter.classList.remove("revealed");
+        if (diagnosticItems[3]) {
+          if (sceneProgress > 0.7) {
+            diagnosticItems[3].classList.add("revealed");
+            if (diagnosticFooter) diagnosticFooter.classList.add("revealed");
+          } else {
+            diagnosticItems[3].classList.remove("revealed");
+            if (diagnosticFooter) diagnosticFooter.classList.remove("revealed");
+          }
         }
       } else {
         if (laserLine) laserLine.classList.remove("animating");
@@ -312,10 +325,18 @@ I noticed Acme Corp's website speed is 6.4s, and you are missing active intake m
 
 Best,
 LeadFlow AI`;
-      if (sceneIndex === 3 && typedEmailSpan) {
-        const charCount = Math.floor(sceneProgress * emailText.length);
-        const visibleText = emailText.substring(0, charCount);
-        typedEmailSpan.innerHTML = visibleText.replace(/\n/g, "<br>");
+      if (sceneIndex === 3) {
+        if (typedEmailSpan) {
+          const charCount = Math.floor(sceneProgress * emailText.length);
+          const visibleText = emailText.substring(0, charCount);
+          typedEmailSpan.innerHTML = visibleText.replace(/\n/g, "<br>");
+        }
+      } else if (typedEmailSpan) {
+        if (sceneIndex < 3) {
+          typedEmailSpan.innerHTML = "";
+        } else {
+          typedEmailSpan.innerHTML = emailText.replace(/\n/g, "<br>");
+        }
       }
 
       // Scene 5: Reply Intelligence
